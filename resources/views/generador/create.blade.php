@@ -8,6 +8,16 @@
 @section('content')
     <div class="container mx-auto mt-10">
         <!-- Nueva Sección para mostrar Categorías como un formulario -->
+        @if (isset($errores) && count($errores) > 0)
+            <div class="bg-red-500 text-white text-center p-4 rounded mb-5">
+                <p><strong>Error:</strong> Tienes {{ count($errores) }} error(es) en tu formulario:</p>
+                <ul class="mt-2">
+                    @foreach ($errores as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <div class="mt-8">
             <h2 class="text-2xl font-bold mb-4">Generador de Categorías</h2>
             <form method="POST" action="{{ route('generador.sugerencia') }}">

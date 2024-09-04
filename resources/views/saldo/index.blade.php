@@ -2,12 +2,26 @@
 
 @section('css')
     <style>
+        body {
+            /* Allow normal body scrolling */
+        }
+
+        .main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: calc(100vh - 100px); /* Adjust based on the height of your top menu */
+        }
+
         .balance-container {
             background-image: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-radius: 12px;
             padding: 2rem;
             box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            margin: 0 2rem; /* Space between the pie charts and the balance container */
+            flex: 1; /* Allow it to resize */
+            max-width: 350px; /* Limit the width of the balance container */
         }
 
         .balance-input {
@@ -43,12 +57,30 @@
         .reset-button:hover {
             background-color: rgba(255, 255, 255, 0.5);
         }
+
+        .chart-container {
+            max-width: 300px;
+            margin: 0 2rem; /* Space between pie charts and balance container */
+            flex: 1; /* Allow it to resize */
+        }
+
+        .chart-canvas {
+            width: 100%;
+            height: auto;
+        }
     </style>
 @endsection
 
 @section('content')
-    <div class="flex flex-col items-center justify-center h-screen">
-        <div class="balance-container max-w-md w-full text-center">
+    <!-- Adjust main container to avoid hiding the top menu -->
+    <div class="main-container">
+        <!-- First Pie Chart -->
+        <div class="chart-container">
+            <canvas id="pieChart1" class="chart-canvas"></canvas>
+        </div>
+
+        <!-- Balance Container -->
+        <div class="balance-container text-center">
             <label for="saldo" class="block mb-4 text-3xl font-extrabold tracking-tight">Mi Saldo Actual</label>
             <input type="text" id="saldo" name="saldo" value="{{ $operacionfinal }}" class="balance-input" disabled>
             <p class="mt-4 text-lg font-medium">Este es tu saldo disponible basado en las últimas operaciones.</p>
@@ -57,9 +89,69 @@
                 <button type="submit" class="reset-button">Resetear INGRESOS Y GASTOS</button>
             </form>
         </div>
+
+        <!-- Second Pie Chart -->
+        <div class="chart-container">
+            <canvas id="pieChart2" class="chart-canvas"></canvas>
+        </div>
     </div>
 @endsection
 
 @section('js')
+    <!-- Include Chart.js from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // First Pie Chart Data and Configuration
+            var ctx1 = document.getElementById('pieChart1').getContext('2d');
+            var pieChart1 = new Chart(ctx1, {
+                type: 'pie',
+                data: {
+                    labels: ['Ingreso Fijo', 'Ingreso Variable'],
+                    datasets: [{
+                        data: [{{$ingreso?$ingreso->ingreso_fijo:0}}, {{$ingreso?$ingreso->ingreso_variable:0}}], // Example data, equal segments
+                        backgroundColor: ['#FF6384', '#36A2EB']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        }
+                    }
+                }
+            });
 
+            // Second Pie Chart Data and Configuration
+            var ctx2 = document.getElementById('pieChart2').getContext('2d');
+            var labels = [];
+            var data = [];
+            @foreach ($historial as $gasto)
+                labels.push('{{$gasto->categoria->Nombre}}')
+                data.push('{{$gasto->monto}}')
+
+            @endforeach
+            var pieChart2 = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data, // Example data, equal segments
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#FE9900', '#060270', '#CC6CE7', '#D20103']
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

@@ -18,7 +18,8 @@ class SaldoController extends Controller
      */
     public function index()
     {
-
+        $historial=Gasto::with('categoria')->where('userID','=',Auth::user()->id)->get();
+        $ingreso=Ingreso::where('userID','=',Auth::user()->id)->first();
 
         $consultabalanceg = DB::table('gastos')
         ->select(DB::raw('SUM(monto) as total_sales'))->where('userID', '=', Auth::user()->id)->first();
@@ -41,7 +42,7 @@ class SaldoController extends Controller
 
         $operacionfinal = $totalSaldo - $totalSales;
 
-        return view('saldo.index', compact('operacionfinal'));
+        return view('saldo.index', compact('operacionfinal', 'historial', 'ingreso'));
         //
     }
 

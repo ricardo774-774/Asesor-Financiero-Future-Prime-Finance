@@ -28,6 +28,7 @@ class GeneradorController extends Controller
 
     public function sugerencia(Request $request)
     {
+        $errores = [];
         $categorias = GeneradorCategoria::all();
 
         $categoria = GeneradorCategoria::find($request->categoria);
@@ -40,10 +41,16 @@ class GeneradorController extends Controller
             $monto=0;
         } 
         $sugerencia = GeneradorSugerencia::where([['sugerencia_cid',$categoria->id],['monto', '<=', $monto]])->orderBy("monto", "desc")->first();
-        $fecha = Carbon::now()->addMonths($categoria->tiempo_meta);
-        $sugerencia->fecha=$fecha->toDateString();
+        if(!$sugerencia){
+            $errores[] = "No puedes continuar, informacion insuficiente"; 
+        }
+        else{
+            $fecha = Carbon::now()->addMonths($categoria->tiempo_meta);
+            $sugerencia->fecha=$fecha->toDateString();
+        }
+        
         $meta=meta::where("userID", Auth::user()->id)->first();
-        return view('generador.create', compact('categorias', 'sugerencia', 'meta'));
+        return view('generador.create', compact('categorias', 'sugerencia', 'meta', 'errores'));
     }
     
 }
