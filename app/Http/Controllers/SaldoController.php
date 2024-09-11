@@ -35,8 +35,6 @@ class SaldoController extends Controller
         ->first();
 
 
-        
-
         // Acceder al total
         $totalSaldo = $consultabalancei->total_sales;
 
@@ -125,6 +123,22 @@ class SaldoController extends Controller
 
         return redirect()->route('saldo.index');
     }
+
+    public function clear()
+    {
+        $id=Auth::user()->id;
+        $historico=Ingreso::where('userID', $id)->first();
+        if (!$historico ){
+            $historico=new Ingreso();
+            $historico->userID=$id;
+        }
+        
+        Gasto::where("userID",$id)->update(["monto"=>0]);
+        Ingreso::where("userID",$id)->update(["ingreso_fijo"=>0,"ingreso_variable"=>0, "ingreso_saldo"=>0]);
+
+        return redirect()->route('saldo.index');
+    }
+
 
 
 }

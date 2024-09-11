@@ -72,7 +72,12 @@
 @endsection
 
 @section('content')
+<div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <!-- Botón Ayuda a la izquierda -->
+    <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+</div>
 <div class="grid grid-cols-2 gap-12 ml-36 mt-16">
+    
     <div class="form-container">
         <form method="POST" action="{{ $condicion ? route('ingreso.update', $ingreso->ingreso->id) : route('ingreso.store') }}">
             @csrf
@@ -87,7 +92,7 @@
             </div>
             <div class="mb-6">
                 <label for="enabledInputLeft" class="block text-lg font-semibold">Ingresa tu ingreso fijo mensual</label>
-                <input type="text" id="enabledInputLeft" class="form-input mt-2" name="ingreso_fijo">
+                <input type="number" id="enabledInputLeft" class="form-input mt-2" name="ingreso_fijo" required>
                 <input type="hidden" value="0" name="tipo_ingreso">
             </div>
             <button type="submit" class="btn-submit text-white font-bold py-3 px-6 rounded-md shadow-lg">Enviar</button>
@@ -109,7 +114,7 @@
             </div>
             <div class="mb-6">
                 <label for="enabledInputRight" class="block text-lg font-semibold">Ingresa tu ingreso variable</label>
-                <input type="text" id="enabledInputRight" class="form-input mt-2" name="ingreso_variable">
+                <input type="number" id="enabledInputRight" class="form-input mt-2" name="ingreso_variable" required>
             </div>
             <button type="submit" class="btn-submit text-white font-bold py-3 px-6 rounded-md shadow-lg">Enviar</button>
         </form>
@@ -169,6 +174,46 @@
         </div>
     </div>
 </div>
+<!-- Modal -->
+<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
+        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+        <p class="mb-4">Bienvenido a la pantalla de Ingresos, en la presente sección, podrás fijar dos datos vitales de tu economía personal: tus ingresos fijos y tus ingresos variables.
+            Tu ingreso fijo consiste en la cantidad de dinero que percibes de manera regular, mensualmente. Si llegas a hacer cambios, recuerda que solo se actualizan.
+            Por otro lado, puedes ingresar tus ingresos variables de manera acumulativa. Cada vez que tengas una entrada de dinero que no sea fija, haz registro de ella.
+            Al centro de la pantalla por debajo de ambos cuadros, podrás ver el balance de tus ingresos y debajo del mismo dos botones para consultar tu historial: la lista de cambios que ha habido.
+            
+            
+            
+            </p>
+        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    // Obtener elementos del DOM
+    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+    // Mostrar el modal
+    openModalBtnAyuda.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        aboutModalAyuda.classList.remove('hidden');
+    });
+
+    // Ocultar el modal
+    closeModalBtnAyuda.addEventListener('click', function() {
+        aboutModalAyuda.classList.add('hidden');
+    });
+
+    // Cerrar el modal si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === aboutModalAyuda) {
+            aboutModalAyuda.classList.add('hidden');
+        }
+    });
+</script>
 @endsection
 
 @section('js')

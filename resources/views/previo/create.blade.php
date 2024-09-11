@@ -6,6 +6,10 @@
 @endsection
 
 @section('content')
+<div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <!-- Botón Ayuda a la izquierda -->
+    <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+</div>
     <div class="container mx-auto mt-10">
         <!-- Alerta de errores -->
         @if (isset($errores) && count($errores) > 0)
@@ -13,6 +17,16 @@
                 <p><strong>Error:</strong> Tienes {{ count($errores) }} error(es) en tu formulario:</p>
                 <ul class="mt-2">
                     @foreach ($errores as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+        @if (session('errores') && is_array(session('errores')) > 0)
+            <div class="bg-red-500 text-white text-center p-4 rounded mb-5">
+                <p><strong>Error:</strong> Tienes {{ count(session('errores')) }} error(es) en tu formulario:</p>
+                <ul class="mt-2">
+                    @foreach (session('errores') as $error)
                         <li>{{ $error }}</li>
                     @endforeach
                 </ul>
@@ -152,6 +166,43 @@
             </div>
         </div>
     </div>
+<!-- Modal -->
+<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
+        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+        <p class="mb-4">Bienvenido a tus Análisis Financieros. Ingresa una cantidad de dinero y el plazo en el que quieres conseguirlo. Con ayuda de nuestra Inteligencia Artificial vas a tener una predicción sobre el ahorro extra que necesitas para poder lograr tu objetivo. Además, verás una recomendación sobre lo que representa tu ahorro de manera visual. ¡No olvides hacer tu registro diario!
+            
+            
+            
+            </p>
+        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    // Obtener elementos del DOM
+    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+    // Mostrar el modal
+    openModalBtnAyuda.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        aboutModalAyuda.classList.remove('hidden');
+    });
+
+    // Ocultar el modal
+    closeModalBtnAyuda.addEventListener('click', function() {
+        aboutModalAyuda.classList.add('hidden');
+    });
+
+    // Cerrar el modal si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === aboutModalAyuda) {
+            aboutModalAyuda.classList.add('hidden');
+        }
+    });
+</script>
 @endsection
 
 @section('js')

@@ -6,6 +6,10 @@
 @endsection
 
 @section('content')
+<div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <!-- Botón Ayuda a la izquierda -->
+    <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+</div>
     <div class="container mx-auto mt-10">
         <!-- Nueva Sección para mostrar Categorías como un formulario -->
         @if (isset($errores) && count($errores) > 0)
@@ -74,6 +78,44 @@
             </div>
         @endif
     </div>
+
+<!-- Modal -->
+<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
+        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+        <p class="mb-4">Bienvenido al Generador de Ideas para Metas. Te sugerimos algunas metas populares para empezar a fomentar tu cultura de ahorro. Selecciona una, y en base a tu información financiera, te daremos una sugerencia de una meta para perseguir. Aunque no es obligatorio, creemos que te puede motivar a visualizar los resultados de tu ahorro. Haz clic en el botón de enviar para consultar tu predicción.
+            
+            
+            
+            </p>
+        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    // Obtener elementos del DOM
+    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+    // Mostrar el modal
+    openModalBtnAyuda.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        aboutModalAyuda.classList.remove('hidden');
+    });
+
+    // Ocultar el modal
+    closeModalBtnAyuda.addEventListener('click', function() {
+        aboutModalAyuda.classList.add('hidden');
+    });
+
+    // Cerrar el modal si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === aboutModalAyuda) {
+            aboutModalAyuda.classList.add('hidden');
+        }
+    });
+</script>
 @endsection
 
 @section('js')

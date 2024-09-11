@@ -115,6 +115,8 @@ Route::controller(SaldoController::class)->group(function () {
 
     Route::post('/reset', 'reset')->middleware(['auth'])->name('saldo.reset');
 
+    Route::post('/clear', 'clear')->middleware(['auth'])->name('saldo.clear');
+
 
 });
 

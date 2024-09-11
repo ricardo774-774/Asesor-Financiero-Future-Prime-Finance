@@ -73,11 +73,12 @@ class calculoiaController extends Controller
                         'fecha_meta' => $previoapi->fecha_meta
                     ]);
                 // Decode JSON response
-                $responseData = $response->json();
+                $response = $response->json();
+
 
                 // Check if the response contains the necessary data
-                if (isset($responseData["ahorro_extra_diario_necesario"]) && $responseData["ahorro_extra_diario_necesario"] > 0) {
-                    $ahorro = AhorroVisual::where('ahorro', '>=', $responseData["ahorro_extra_diario_necesario"])
+                if (isset($response["ahorro_extra_diario_necesario"]) && $response["ahorro_extra_diario_necesario"] > 0) {
+                    $ahorro = AhorroVisual::where('ahorro', '>=', $response["ahorro_extra_diario_necesario"])
                         ->orderBy('ahorro', 'asc')
                         ->first();
 
