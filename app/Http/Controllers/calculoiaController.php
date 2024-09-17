@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\AhorroVisual;
 use App\Models\previo;
 use App\Models\historico;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use App\Models\meta_historico;
 use App\Models\meta;
 use App\Models\User;
 use Carbon\Carbon;
+use Exception;
+use GuzzleHttp\Exception\ConnectException;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\RequestException;
+
 
 class calculoiaController extends Controller
 {
@@ -58,26 +61,43 @@ class calculoiaController extends Controller
         }
 
         if (count($errores) == 0) {
-            $response = Http::accept('application/json')->post(env('API_URL'), [
-                'X' => $xapi,
-                'y' => $yapi,
-                'dinero_meta' => $previoapi->dinero_meta,
-                'fecha_meta' => $previoapi->fecha_meta
-            ]);
-            $response = $response->json();
+            try {
 
-            if ($response["ahorro_extra_diario_necesario"] > 0) {
 
-                $ahorro = AhorroVisual::where('ahorro', '>=', $response["ahorro_extra_diario_necesario"])->orderBy('ahorro', 'asc')->first();
-                if (!$ahorro) {
+                $response = Http::timeout(10) // Set timeout to 10 seconds
+                    ->accept('application/json')
+                    ->post(env('API_URL'), [
+                        'X' => $xapi,
+                        'y' => $yapi,
+                        'dinero_meta' => $previoapi->dinero_meta,
+                        'fecha_meta' => $previoapi->fecha_meta
+                    ]);
+                // Decode JSON response
+                $response = $response->json();
+
+
+                // Check if the response contains the necessary data
+                if (isset($response["ahorro_extra_diario_necesario"]) && $response["ahorro_extra_diario_necesario"] > 0) {
+                    $ahorro = AhorroVisual::where('ahorro', '>=', $response["ahorro_extra_diario_necesario"])
+                        ->orderBy('ahorro', 'asc')
+                        ->first();
+
+                    if (!$ahorro) {
+                        $ahorro = new \stdClass;
+                        $ahorro->ejemplo = "¡Cuidado, tu meta de ahorro tiene una baja probabilidad de tener éxito!";
+                        $ahorro->foto = 'foto_irreal.jpg';
+                    }
+                } else {
                     $ahorro = new \stdClass;
-                    $ahorro->ejemplo = "¡Cuidado, tu meta de ahorro tiene una baja probabilidad de tener éxito!";
-                    $ahorro->foto = 'foto_irreal.jpg';
+                    $ahorro->ejemplo = "¡MUY BIEN, VAS SOBRADO EN TUS AHORROS PARA LOGRAR TU META!";
+                    $ahorro->foto = 'foto_feliz.jpg';
                 }
-            } else {
-                $ahorro = new \stdClass;
-                $ahorro->ejemplo = "¡MUY BIEN, VAS SOBRADO EN TUS AHORROS PARA LOGARAR TU META!";
-                $ahorro->foto = 'foto_feliz.jpg';
+            } catch (RequestException $e) {
+                dd("DIE");
+            } catch (Exception $e) {
+                $errores[] = "NO SE PUDO CONECTAR A LA API";
+                $response = null;
+                $ahorro = null;
             }
         } else {
             $response = null;
@@ -130,29 +150,37 @@ class calculoiaController extends Controller
         }
 
         if (count($errores) == 0) {
-            $response = Http::accept('application/json')->post(env('API_URL'), [
-                'X' => $xapi,
-                'y' => $yapi,
-                'dinero_meta' => $metaapi->dinero_meta,
-                'fecha_meta' => $metaapi->fecha_meta
-            ]);
-            $response = $response->json();
-            if ($response["ahorro_extra_diario_necesario"] > 0) {
+            try {
+                $response = Http::accept('application/json')->post(env('API_URL'), [
+                    'X' => $xapi,
+                    'y' => $yapi,
+                    'dinero_meta' => $metaapi->dinero_meta,
+                    'fecha_meta' => $metaapi->fecha_meta
+                ]);
+                $response = $response->json();
+                if ($response["ahorro_extra_diario_necesario"] > 0) {
 
-                $ahorro = AhorroVisual::where('ahorro', '>=', $response["ahorro_extra_diario_necesario"])->orderBy('ahorro', 'asc')->first();
-                if (!$ahorro) {
+                    $ahorro = AhorroVisual::where('ahorro', '>=', $response["ahorro_extra_diario_necesario"])->orderBy('ahorro', 'asc')->first();
+                    if (!$ahorro) {
+                        $ahorro = new \stdClass;
+                        $ahorro->ejemplo = "¡Cuidado, tu meta de ahorro tiene una baja probabilidad de tener éxito!";
+                        $ahorro->foto = 'foto_irreal.jpg';
+                    }
+                } else {
                     $ahorro = new \stdClass;
-                    $ahorro->ejemplo = "¡Cuidado, tu meta de ahorro tiene una baja probabilidad de tener éxito!";
-                    $ahorro->foto = 'foto_irreal.jpg';
+                    $ahorro->ejemplo = "¡MUY BIEN, VAS SOBRADO EN TUS AHORROS PARA LOGARAR TU META!";
+                    $ahorro->foto = 'foto_feliz.jpg';
                 }
-            } else {
-                $ahorro = new \stdClass;
-                $ahorro->ejemplo = "¡MUY BIEN, VAS SOBRADO EN TUS AHORROS PARA LOGARAR TU META!";
-                $ahorro->foto = 'foto_feliz.jpg';
+            } catch (RequestException $e) {
+                dd("DIE");
+            } catch (Exception $e) {
+                $errores[] = "NO SE PUDO CONECTAR A LA API";
+                $response = null;
+                $ahorro = null;
             }
         } else {
             $response = null;
-            $ahorro=null;
+            $ahorro = null;
         }
 
 

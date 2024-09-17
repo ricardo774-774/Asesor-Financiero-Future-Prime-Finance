@@ -89,6 +89,10 @@
 @endsection
 
 @section('content')
+<div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <!-- Botón Ayuda a la izquierda -->
+    <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+</div>
     <div class="grid grid-cols-3 gap-8 ml-36 mt-16">
         <div class="flex flex-col">
             <form method="POST" action="{{route('gasto.store') }}" class="input-container">
@@ -100,7 +104,7 @@
                     <input type="hidden" id="disabledInputRight1" class="input-field" name="indicador" value="0" disabled>
                 </div>
                 <div class="mb-6">
-                    <select id="categoria" class="select-field" name="categoriasID">
+                    <select id="categoria" class="select-field" name="categoriasID" required>
                         <option value="" disabled {{ old('categoriasID') === null ? 'selected' : '' }}>Seleccione la categoría</option>
                         @foreach ($categorias as $item)
                             <option value="{{ $item->id }}" {{ old('categoriasID') == $item->id ? 'selected' : '' }}>{{ $item->Nombre }}</option>
@@ -109,7 +113,7 @@
                 </div>
                 <div class="mb-6">
                     <label for="enabledInputLeft" class="block text-xl font-semibold text-white">Ingrese nuevo gasto fijo por categoría</label>
-                    <input type="text" id="enabledInputLeft" class="input-field" name="monto_fijo">
+                    <input type="number" id="enabledInputLeft" class="input-field" name="monto_fijo" required>
                 </div>
                 <button type="submit" class="btn-submit text-white font-bold py-3 px-6 rounded-md">Enviar</button>
             </form>
@@ -147,7 +151,7 @@
                 </div>
                 <div class="mb-6">
                     <label for="enabledInputRight1" class="block text-xl font-semibold text-white">Ingrese nuevo gasto variable necesario</label>
-                    <input type="text" id="enabledInputRight1" class="input-field" name="gvn2">
+                    <input type="number" id="enabledInputRight1" class="input-field" name="gvn2" required>
                 </div>
                 <button type="submit" class="btn-submit text-white font-bold py-3 px-6 rounded-md">Enviar</button>
             </form>
@@ -165,7 +169,7 @@
                 </div>
                 <div class="mb-6">
                     <label for="enabledInputRight2" class="block text-xl font-semibold text-white">Ingrese nuevo gasto variable NO necesario</label>
-                    <input type="text" id="enabledInputRight2" class="input-field" name="gvnn2">
+                    <input type="number" id="enabledInputRight2" class="input-field" name="gvnn2" required >
                 </div>
                 <button type="submit" class="btn-submit text-white font-bold py-3 px-6 rounded-md">Enviar</button>
             </form>
@@ -215,6 +219,47 @@
             </table>
         </div>
     </div>
+
+<!-- Modal -->
+<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
+    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
+        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+        <p class="mb-4">Bienvenido a la pantalla de Gastos. Como podrás ver, existen tres secciones para dividir tus gastos.
+            Por un lado, en el cuadro izquierdo, registra tus gastos mensuales seleccionando en la barra desplegable la categoría, y procede a ingresar el número correspondiente. Recuerda que en esta sección si modificas un gasto, solo se va a actualizar.
+            Al centro y a la derecha, tienes dos cuadros para ingresar tus gastos variables. Separa tus gastos en necesario y no necesario, y recuerda que estos dos gastos son cantidades que se van acumulando, no actualizando.
+            
+            
+            
+            
+            </p>
+        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    </div>
+</div>
+
+<script>
+    // Obtener elementos del DOM
+    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+    // Mostrar el modal
+    openModalBtnAyuda.addEventListener('click', function(event) {
+        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
+        aboutModalAyuda.classList.remove('hidden');
+    });
+
+    // Ocultar el modal
+    closeModalBtnAyuda.addEventListener('click', function() {
+        aboutModalAyuda.classList.add('hidden');
+    });
+
+    // Cerrar el modal si se hace clic fuera de él
+    window.addEventListener('click', function(event) {
+        if (event.target === aboutModalAyuda) {
+            aboutModalAyuda.classList.add('hidden');
+        }
+    });
+</script>
 @endsection
 
 @section('js')

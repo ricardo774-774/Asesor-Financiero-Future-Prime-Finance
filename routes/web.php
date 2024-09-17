@@ -15,6 +15,9 @@ use App\Http\Controllers\PrevioController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\calculoiaController;
 
+Route::get('/test', function () {
+    return view('test');
+});
 
 Route::get('/', function () {
     return view('welcome');
@@ -114,6 +117,8 @@ Route::controller(SaldoController::class)->group(function () {
     Route::delete('/saldo/{saldo}', 'destroy')->middleware(['auth','can:saldo.destroy'])->name('saldo.destroy');
 
     Route::post('/reset', 'reset')->middleware(['auth'])->name('saldo.reset');
+
+    Route::post('/clear', 'clear')->middleware(['auth'])->name('saldo.clear');
 
 
 });

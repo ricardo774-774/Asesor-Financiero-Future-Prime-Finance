@@ -149,7 +149,8 @@ class GastoController extends Controller
         $historial->save();
     } 
     else if($request->indicador==1){
-        $gasto = Gasto::where('categoriasID', '=',7)->first();
+        $gasto = Gasto::where('categoriasID', '=',7)->
+        where('userID', Auth::user()->id)->first();
         $gasto->monto+=$request->gvn2;
         $gasto->categoriasID=7;
         $historial->categoriasID=7;
@@ -164,7 +165,8 @@ class GastoController extends Controller
     }
 
     else if($request->indicador==2){
-        $gasto = Gasto::where('categoriasID', '=',8)->first();
+        $gasto = Gasto::where('categoriasID', '=',8)->
+        where('userID', Auth::user()->id)->first();
         $gasto->monto+=$request->gvnn2;
         $gasto->categoriasID=8;
         $historial->categoriasID=8;

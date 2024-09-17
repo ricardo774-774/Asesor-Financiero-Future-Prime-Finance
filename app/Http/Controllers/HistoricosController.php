@@ -11,12 +11,18 @@ use Illuminate\Support\Facades\DB;
 class HistoricosController extends Controller
 {
     public function store(Request $request){
+        $dateForDatabase = Carbon::now()->format('Y-m-d'); // Alternatively, you can use date('Y-m-d');
+        $validar = historico::where([['fecha_click', $dateForDatabase], ['userID', Auth::user()->id]])->first();
+        if($validar)
+        {
+            $errores = ['Solo se permite un registro por dia'];
+            return redirect()->back()->with('errores', $errores);
+        }
         $historico=new historico();
         $id=Auth::user()->id;
         $consultabalanceg = DB::table('gastos')
         ->select(DB::raw('SUM(monto) as total_sales'))->where('userID', '=', Auth::user()->id)->first();
 
-        $dateForDatabase = Carbon::now()->format('Y-m-d'); // Alternatively, you can use date('Y-m-d');
         $historico->fecha_click = $dateForDatabase;
         
         
