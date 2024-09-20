@@ -5,6 +5,7 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Carbon\Carbon; // Asegúrate de importar Carbon para manejar las fechas
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -26,9 +27,11 @@ class UserFactory extends Factory
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
+            'email_verified_at' => now(), // Verifica el correo con la fecha actual
+            'password' => static::$password ??= Hash::make('password'), // Contraseña hashada
+            'remember_token' => Str::random(10), // Genera un token aleatorio
+            'created_at' => Carbon::now(), // Asigna la fecha de creación actual
+            'updated_at' => Carbon::now(), // Asigna la fecha de actualización actual
         ];
     }
 

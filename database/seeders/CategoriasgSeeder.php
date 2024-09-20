@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\categoriasg;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon; // Importar la clase Carbon para manejar las fechas
 
 class CategoriasgSeeder extends Seeder
 {
@@ -13,54 +13,63 @@ class CategoriasgSeeder extends Seeder
      */
     public function run(): void
     {
+        // Obtener la fecha y hora actual
+        $now = Carbon::now();
+
         categoriasg::create([
-            'Nombre'=>'vivienda',
-            'fv'=>'0'
+            'Nombre' => 'vivienda',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
 
         categoriasg::create([
-            'Nombre'=>'salud',
-            'fv'=>'0'
+            'Nombre' => 'salud',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'educacion',
-            'fv'=>'0'
+            'Nombre' => 'educacion',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'transporte',
-            'fv'=>'0'
+            'Nombre' => 'transporte',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'alimento',
-            'fv'=>'0'
+            'Nombre' => 'alimento',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'autocuidado',
-            'fv'=>'0'
+            'Nombre' => 'autocuidado',
+            'fv' => '0',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'necesario',
-            'fv'=>'1'
+            'Nombre' => 'necesario',
+            'fv' => '1',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
 
         categoriasg::create([
-            'Nombre'=>'innecesario',
-            'fv'=>'1'
+            'Nombre' => 'innecesario',
+            'fv' => '1',
+            'created_at' => $now,
+            'updated_at' => $now
         ]);
-
-
-
-        //
     }
 }

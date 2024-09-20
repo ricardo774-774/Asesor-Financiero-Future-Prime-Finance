@@ -14,19 +14,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Llamar a los seeders en el orden adecuado
         $this->call([
             RoleSeeder::class, 
             CategoriasgSeeder::class,
-            UsuariosMuestraSeeder::class,
+            UsuariosMuestraSeeder::class, // Llamar a UsuariosMuestraSeeder antes de asignar roles
+            GastoSeeder::class, // Llamar a GastoSeeder después de que los usuarios han sido creados
             SaldoSeeder::class,
-            GastoSeeder::class,
             AhorrosDiariosSeeder::class,
-            GeneradorSugerenciasSeeder::class,
             GeneradorCategoriasSeeder::class,
-            HistoricosSeeder::class,
+            GeneradorSugerenciasSeeder::class,
+            HistoricosSeeder::class, // Llamar a HistoricosSeeder después de que los usuarios han sido creados
+            //seeders que no estan pero no son necesarios:
+            //
         ]); 
-        // User::factory(10)->create();
 
+        // Asignar roles a los usuarios después de que han sido creados por el UsuariosMuestraSeeder
+        User::where('id', 11)->first()->assignRole('user');
+        User::where('id', 22)->first()->assignRole('user');
+        User::where('id', 33)->first()->assignRole('user');
+
+        // Crear otros usuarios adicionales
         User::factory()->create([
             'name' => 'adminL',
             'email' => 'lalofrancia1@gmail.com',
@@ -42,28 +50,6 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'userG',
             'email' => 'usuarioG@gmail.com',
-            'password' => Hash::make('Modular2')
-        ])->assignRole('user');
-
-        // Insertar los nuevos usuarios
-        User::factory()->create([
-            'id' => 11,
-            'name' => 'Alex Casillas',
-            'email' => 'alexcasillas@gmail.com',
-            'password' => Hash::make('Modular2')
-        ])->assignRole('user'); 
-
-        User::factory()->create([
-            'id' => 22,
-            'name' => 'Max Cruz',
-            'email' => 'maxcruz@gmail.com',
-            'password' => Hash::make('Modular2')
-        ])->assignRole('user');
-
-        User::factory()->create([
-            'id' => 33,
-            'name' => 'Abraham Ramirez',
-            'email' => 'abrahamramirez@gmail.com',
             'password' => Hash::make('Modular2')
         ])->assignRole('user');
     }
