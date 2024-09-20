@@ -15,11 +15,11 @@ class UsuariosMuestraSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insertOrIgnore([
-            ['id' => 11, 'name' => 'Alex Casillas', 'email' => 'alexcasillas@gmail.com', 'password' => Hash::make('Modular2')],
-            ['id' => 22, 'name' => 'Max Cruz', 'email' => 'maxcruz@gmail.com', 'password' => Hash::make('Modular2')],
-            ['id' => 33, 'name' => 'Abraham Ramirez', 'email' => 'abrahamramirez@gmail.com', 'password' => Hash::make('Modular2')],
-        ]);
+        // DB::table('users')->insertOrIgnore([
+        //     ['id' => 11, 'name' => 'Alex Casillas', 'email' => 'alexcasillas@gmail.com', 'password' => Hash::make('Modular2')],
+        //     ['id' => 22, 'name' => 'Max Cruz', 'email' => 'maxcruz@gmail.com', 'password' => Hash::make('Modular2')],
+        //     ['id' => 33, 'name' => 'Abraham Ramirez', 'email' => 'abrahamramirez@gmail.com', 'password' => Hash::make('Modular2')],
+        // ]);
     }
 }
 
