@@ -76,7 +76,7 @@
     <!-- Botón Ayuda a la izquierda -->
     <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
 </div>
-<div class="grid grid-cols-2 gap-12 ml-36 mt-16">
+<div class="grid grid-cols-2 gap-2 justify-center items-center ml-auto mr-auto mt-16 w-full max-w-6xl px-6">
     
     <div class="form-container">
         <form method="POST" action="{{ $condicion ? route('ingreso.update', $ingreso->ingreso->id) : route('ingreso.store') }}">

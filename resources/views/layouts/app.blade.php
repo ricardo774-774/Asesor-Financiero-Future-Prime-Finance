@@ -10,12 +10,13 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('lofo-v2.png') }}" type="image/x-icon">
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
         @vite('resources/css/app.css')
         @vite('resources/js/app.js')
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -23,8 +24,8 @@
 
             <!-- Page Heading -->
             @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                <header>
+                    <div class="max-w-7xl mx-auto py-10 pb-1 px-4 sm:px-6 lg:px-8">
                         {{ $header }}
                     </div>
                 </header>
@@ -39,10 +40,10 @@
                 @yield('css')
                 @yield('content')
                 @yield('js')
-                <div class="w-full bg-gray-100 p-4 flex justify-center items-center">
+                <footer id="footer" class="w-full p-6 flex justify-center items-center">
                     <!-- Botón Acerca de Nosotros -->
-                    <a href="#" id="openModalBtn" class="text-blue-500 cursor-pointer">ACERCA DE NOSOTROS</a>
-                </div>
+                    <a href="#" id="openModalBtn" class="font-bold transition duration-300 ease-in-out transform hover:scale-105">ACERCA DE NOSOTROS</a>
+                </footer>
                 
                 <!-- Modal -->
                 <div id="aboutModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">

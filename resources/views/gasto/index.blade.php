@@ -93,7 +93,7 @@
     <!-- Botón Ayuda a la izquierda -->
     <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
 </div>
-    <div class="grid grid-cols-3 gap-8 ml-36 mt-16">
+    <div class="grid grid-cols-3 gap-6 justify-self-auto ml-auto mr-auto mt-16 w-full px-6">
         <div class="flex flex-col">
             <form method="POST" action="{{route('gasto.store') }}" class="input-container">
                 @csrf
@@ -119,7 +119,7 @@
             </form>
 
             <!-- Tabla de valores por categoría -->
-            <div class="mt-6">
+            <div class="mt-8">
                 <label class="block text-xl font-semibold text-gray-700 mb-2">Valores por Categoría</label>
                 <table class="min-w-full bg-white border border-gray-300 shadow-sm rounded-md">
                     <thead class="table-header">
@@ -185,7 +185,7 @@
 
     <!-- Nueva fila para el botón y la tabla de historial -->
     <div class="flex flex-col items-end mt-12 mr-auto pr-40">
-        <button onclick="document.getElementById('tabla2Div').classList.toggle('hidden')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transition duration-200 mb-4">Mostrar HISTORIAL</button>
+        <button id="" onclick="document.getElementById('tabla2Div').classList.toggle('hidden')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transition duration-200 mb-4">Mostrar Historial</button>
         <div id="tabla2Div" class="w-full hidden">
             <table class="min-w-full bg-white border border-gray-300 text-center shadow-sm rounded-md">
                 <thead class="table-header">

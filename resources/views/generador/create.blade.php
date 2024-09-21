@@ -6,11 +6,18 @@
 @endsection
 
 @section('content')
+<style>
+    #min {
+        min-height: 65vh; /* Altura mínima del 80% de la altura de la ventana */
+    }
+</style>
+
+
 <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
     <!-- Botón Ayuda a la izquierda -->
     <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
 </div>
-    <div class="container mx-auto mt-10">
+    <div id="min" class="container  mx-auto mt-10 ">
         <!-- Nueva Sección para mostrar Categorías como un formulario -->
         @if (isset($errores) && count($errores) > 0)
             <div class="bg-red-500 text-white text-center p-4 rounded mb-5">

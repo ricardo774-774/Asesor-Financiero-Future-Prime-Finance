@@ -1,68 +1,86 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-2xl text-gray-800 leading-tight text-center">
+        <h2 class="font-semibold text-2xl text-gray-800 leading-tight text-center bg-gray-100">
             {{ __('ASESOR FINANCIERO') }}
         </h2>
     </x-slot>
 
+
     @can('gasto.index')
-    <div class="bg-gradient-to-b from-gray-100 to-gray-300">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+
+    <style>
+        .main-box {
+            border: 1px solid rgba(225, 225, 225, 0.8);
+            box-shadow: 0px 0px 10px #ccc;
+        }
+        #image {
+            height: 60%;
+        }
+
+        /* #aboutModalAyuda {
+            width: 80%;
+        } */
+    </style>
+
+    <div class="bg-gradient-to-b">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-6 from-gray-100 to-gray-300">
             <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
                 <!-- Botón Ayuda a la izquierda -->
                 <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Ayuda</a>  
             </div>
             
-            <div class="bg-white/90 backdrop-blur-md overflow-hidden shadow-sm sm:rounded-lg min-h-screen flex justify-center items-center">
-                <!-- Aquí va el contenido -->
-            
+            <div class="w-full flex flex-col items-center space-y-20">
+                
+                <div class="grid grid-cols-3 gap-6 w-full max-w-6xl px-6 mx-auto">
+    
+                    <!-- Tarjeta Metas -->
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
+                        <a href="{{ route('meta.create') }}" class="block w-full h-full">
+
+                            <img id="image" src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             
-                <div class="w-full flex flex-col items-center">
-                    
-                    <!-- Sección central con botones -->
-                    <div class="w-full flex flex-col items-center space-y-20"> <!-- Aumenta aún más el espacio entre los botones -->
-                        
-                        <!-- Botón de Metas -->
-                        <div class="relative group">
-                            <a href="{{route('meta.create')}}" class="bg-gradient-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 text-white font-bold py-8 px-16 rounded-full w-2/3 text-center text-2xl shadow-lg transition transform hover:scale-105">
-                                METAS
-                            </a>
-                            <!-- Tooltip -->
-                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 bg-gray-700 text-white text-sm rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                Configura y administra tus metas financieras aquí.
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">METAS</h3>
+                                <p class="text-gray-600">Configura y administra tus metas financieras aquí.</p>
                             </div>
-                        </div>
-
-                        <!-- Botón de Análisis Financiero -->
-                        <div class="relative group">
-                            <a href="{{route('previo.create')}}" class="bg-gradient-to-r from-green-500 to-green-700 hover:from-green-600 hover:to-green-800 text-white font-bold py-8 px-16 rounded-full w-2/3 text-center text-2xl shadow-lg transition transform hover:scale-105">
-                                ANÁLISIS FINANCIERO
-                            </a>
-                            <!-- Tooltip -->
-                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 bg-gray-700 text-white text-sm rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                Realiza un análisis financiero basado en tus datos.
-                            </div>
-                        </div>
-
-                        <!-- Botón de Generador -->
-                        <div class="relative group">
-                            <a href="{{route('generador.index')}}" class="bg-gradient-to-r from-purple-500 to-purple-700 hover:from-purple-600 hover:to-purple-800 text-white font-bold py-8 px-16 rounded-full w-2/3 text-center text-2xl shadow-lg transition transform hover:scale-105">
-                                GENERADOR
-                            </a>
-                            <!-- Tooltip -->
-                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 w-72 bg-gray-700 text-white text-sm rounded-lg p-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                Genera un reporte o documento según tus necesidades.
-                            </div>
-                        </div>
-
+                        </a>
                     </div>
+                
+                    <!-- Tarjeta Análisis Financiero -->
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
+                        <a href="{{ route('previo.create') }}" class="block w-full h-full">
+
+                            <img id="image" src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            
+
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">ANÁLISIS FINANCIERO</h3>
+                                <p class="text-gray-600">Realiza un análisis financiero basado en tus datos.</p>
+                            </div>
+                        </a>
+                    </div>
+                
+                    <!-- Tarjeta Generador -->
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
+                        <a href="{{ route('generador.index') }}" class="block w-full h-full">
+
+                            <img id="image" src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            
+
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2">GENERADOR</h3>
+                                <p class="text-gray-600">Inspírate por alguna de las sugerencias más populares entre la población</p>
+                            </div>
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
         </div>
     </div>
     <!-- Modal -->
-    <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-400">
+    <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center hidden mx-10">
+        <div class="bg-white p-6 rounded-lg shadow-lg">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
             <p class="mb-4">Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
                 Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, brindando una experiencia de calidad, siendo tu acompañamiento en el camino de las Finanzas Personales.

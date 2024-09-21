@@ -1,1 +1,1 @@
-<img src="{{asset('mini.jpg')}}" width="50">
+<img src="{{asset('lofo-v2.png')}}" width="50">

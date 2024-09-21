@@ -18,7 +18,7 @@
     <style>
         .button-inicio {
             padding: 12px 24px;
-            background-color: #f2ff5e;
+            background-color: #cbcaca;
             font-size: 1.5rem;
             color: rgb(64, 64, 64);
             border-radius: 8px;
@@ -26,7 +26,7 @@
         }
     
         .button-inicio:hover {
-            background-color: #f0f0f0;
+            background-color: #aaaaaa;
         }
     
         .cajafondo {
@@ -43,8 +43,8 @@
         <!-- Primera columna - cajafondo -->
         <div class="w-full h-full flex items-center justify-center">
             <div class="w-max max-w-2xl px-6 lg:max-w-7xl cajafondo">
-                <h1 class="text-left font-bold text-7xl mb-5 text-white">Bienvenidos a Future Prime Finance</h1>
-                <p class="text-left text-2xl text-slate-200">
+                <h1 class="text-left font-bold text-8xl mb-5 text-white">Bienvenidos a Future Prime Finance</h1>
+                <p class="text-left text-3xl text-slate-200">
                     En Future Prime Finance, estamos dedicados a ayudarte a alcanzar tus metas financieras. Ya sea que estés buscando ahorrar para el futuro, invertir sabiamente o simplemente manejar mejor tu dinero, estamos aquí para ofrecerte las herramientas y el conocimiento que necesitas.
                 </p>
             </div>
@@ -52,7 +52,7 @@
     
         <!-- Segunda columna - contenido test -->
         <div class="w-full h-full flex items-center justify-center">
-            <div class="font-bold text-center text-2xl">
+            <div class="font-bold text-center text-4xl border-2 border-black bg-black bg-opacity-40 rounded-md bg">
                 <div class="grid m-5">
                     <p class="text-white">¿Ya tienes una cuenta?</p>
                     <a href="{{ route('login') }}" class="button-inicio">Acceso</a>
