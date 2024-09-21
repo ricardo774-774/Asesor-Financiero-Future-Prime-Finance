@@ -15,6 +15,9 @@ class HistoricosSeeder extends Seeder
      */
     public function run()
     {
+        // Obtener la fecha y hora actual
+        $now = Carbon::now();
+
         // Para el userID 11: 30 días de septiembre
         $userID = 11;
         $startDate = Carbon::create(2024, 9, 1); // 1 de septiembre de 2024
@@ -24,6 +27,8 @@ class HistoricosSeeder extends Seeder
                 'userID' => $userID,
                 'saldo' => rand(200, 4000),
                 'fecha_click' => $startDate->copy()->addDays($i)->toDateString(),
+                'created_at' => $now,
+                'updated_at' => $now,
             ]);
         }
 
@@ -36,6 +41,8 @@ class HistoricosSeeder extends Seeder
                 'userID' => $userID,
                 'saldo' => rand(200, 4000),
                 'fecha_click' => $startDate->copy()->addDays($i)->toDateString(),
+                'created_at' => $now,
+                'updated_at' => $now,
             ]);
         }
 
@@ -48,6 +55,8 @@ class HistoricosSeeder extends Seeder
                 'userID' => $userID,
                 'saldo' => rand(200, 4000),
                 'fecha_click' => $startDate->copy()->addDays($i)->toDateString(),
+                'created_at' => $now,
+                'updated_at' => $now,
             ]);
         }
     }
