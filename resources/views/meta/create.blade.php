@@ -240,7 +240,7 @@
         let errorDiv = document.getElementById('error-message');
         setTimeout(() => {
             errorDiv.remove();
-        }, 3000 );
+        }, 5000 );
     }
 
 </script>
