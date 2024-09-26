@@ -42,7 +42,7 @@ class GeneradorController extends Controller
         } 
         $sugerencia = GeneradorSugerencia::where([['sugerencia_cid',$categoria->id],['monto', '<=', $monto]])->orderBy("monto", "desc")->first();
         if(!$sugerencia){
-            $errores[] = "No puedes continuar, informacion insuficiente"; 
+            $errores[] = "Asegúrate de generar un registro diario primero"; 
         }
         else{
             $fecha = Carbon::now()->addMonths($categoria->tiempo_meta);

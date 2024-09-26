@@ -20,7 +20,7 @@
     <div id="min" class="container  mx-auto mt-10 ">
         <!-- Nueva Sección para mostrar Categorías como un formulario -->
         @if (isset($errores) && count($errores) > 0)
-            <div class="bg-red-500 text-white text-center p-4 rounded mb-5">
+            <div id="error-message" class="bg-red-500 text-white text-center p-4 rounded mb-5">
                 <p><strong>Error:</strong> Tienes {{ count($errores) }} error(es) en tu formulario:</p>
                 <ul class="mt-2">
                     @foreach ($errores as $error)
@@ -30,24 +30,36 @@
             </div>
         @endif
         <div class="mt-8">
-            <h2 class="text-2xl font-bold mb-4">Generador de Categorías</h2>
-            <form method="POST" action="{{ route('generador.sugerencia') }}">
-                @csrf
-                <div class="mb-4">
-                    <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Selecciona una Categoría:</label>
-                    <select id="categoria" name="categoria" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        @foreach ($categorias as $categoria)
-                            <option value="{{ $categoria->id }}">{{ $categoria->nombre}}</option>
-                        @endforeach
-                    </select>
+            <h1 class="text-4xl font-bold mb-5 text-center uppercase">Generador de Categorías</h1>
+                <div class="w-4/5 mx-auto">
+                    <form method="POST" action="{{ route('generador.sugerencia') }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="categoria" class="block text-gray-700 text-sm font-bold mb-2">Selecciona una Categoría:</label>
+                            <select id="categoria" name="categoria" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                @foreach ($categorias as $categoria)
+                                    <option value="{{ $categoria->id }}">{{ $categoria->nombre}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                Enviar
+                            </button>
+                        </div>
+                    </form>
                 </div>
-                <div class="flex items-center justify-between">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        Enviar
-                    </button>
+                
+    
+                <div class="w-4/5 mx-auto mt-10 text-center justify-center text-sm">
+                    <p class="mb-2">
+                        Alcanzar metas materiales puede ser una fuente de satisfacción personal. Es una manera tangible de ver el fruto de tu esfuerzo y dedicación, lo cual puede aumentar tu autoestima y motivación para seguir alcanzando otros objetivos. Además, poseer bienes materiales te da una mayor independencia. No depender de terceros para tu vivienda o transporte te permite tomar decisiones más libres y vivir de acuerdo a tus propias reglas y necesidades.
+                    </p>
+                    <span class="font-bold">
+                        Sigue adelante con confianza y determinación
+                    </span>
                 </div>
-            </form>
-        </div>
+            </div>
 
         <!-- Sección para mostrar la sugerencia si existe -->
         @if(isset($sugerencia))
@@ -122,6 +134,14 @@
             aboutModalAyuda.classList.add('hidden');
         }
     });
+
+    // Quitar de la vista el error
+    if (document.getElementById('error-message')) {
+        let errorDiv = document.getElementById('error-message');
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 3000 );
+    }
 </script>
 @endsection
 

@@ -52,17 +52,18 @@
     
         <!-- Segunda columna - contenido test -->
         <div class="w-full h-full flex items-center justify-center">
-            <div class="font-bold text-center text-4xl border-2 border-black bg-black bg-opacity-40 rounded-md bg">
-                <div class="grid m-5">
-                    <p class="text-white">¿Ya tienes una cuenta?</p>
-                    <a href="{{ route('login') }}" class="button-inicio">Acceso</a>
+            <div class="font-bold text-center text-4xl border-2 border-gray-600 bg-black bg-opacity-40 rounded-xl shadow-lg p-8">
+                <div class="grid mb-8">
+                    <p class="text-white mb-3 text-2xl">¿Ya tienes una cuenta?</p>
+                    <a href="{{ route('login') }}" class="button-inicio bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-500 transition duration-300">Acceso</a>
                 </div>
-               <div class="grid m-5">
-                    <p class="text-white">Registrarte</p>
-                    <a href="{{ route('register') }}" class="button-inicio">Registrarse</a>
-               </div>
+                <div class="grid">
+                    <p class="text-white mb-3 text-2xl">¿Aún no te has registrado?</p>
+                    <a href="{{ route('register') }}" class="button-inicio bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-500 transition duration-300">Registrarse</a>
+                </div>
             </div>
         </div>
+        
     
     </body>
 </html>

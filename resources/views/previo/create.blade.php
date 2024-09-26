@@ -13,7 +13,7 @@
     <div class="container mx-auto mt-10">
         <!-- Alerta de errores -->
         @if (isset($errores) && count($errores) > 0)
-            <div class="bg-red-500 text-white text-center p-4 rounded mb-5">
+            <div id="error-message" class="bg-red-500 text-white text-center p-4 rounded mb-5">
                 <p><strong>Error:</strong> Tienes {{ count($errores) }} error(es) en tu formulario:</p>
                 <ul class="mt-2">
                     @foreach ($errores as $error)
@@ -23,7 +23,7 @@
             </div>
         @endif
         @if (session('errores') && is_array(session('errores')) > 0)
-            <div class="bg-red-500 text-white text-center p-4 rounded mb-5">
+            <div id="error-message" class="bg-red-500 text-white text-center p-4 rounded mb-5">
                 <p><strong>Error:</strong> Tienes {{ count(session('errores')) }} error(es) en tu formulario:</p>
                 <ul class="mt-2">
                     @foreach (session('errores') as $error)
@@ -33,7 +33,7 @@
             </div>
         @endif
 
-        <h1 class="text-2xl font-bold mb-5">Usuario</h1>
+        <h1 class="text-4xl font-bold mb-5 text-center">ANÁLISIS FINANCIERO</h1>
         
         <form method="POST" action="{{ $condicion_previo ? route('previo.update', $previo->previo->id) : route('previo.store') }}">
             @csrf
@@ -60,27 +60,54 @@
         </form>
 
         <!-- Contenedor para los botones y la tabla de "Mi Objetivo Financiero" -->
-        <div class="flex space-x-4 mt-8">
-            <div class="w-1/2">
-                <!-- Segundo formulario con más separación -->
-                <form method="POST" action="{{ route('historicos.store') }}" class="mb-4">
-                    @csrf
-                    @method('POST')
-                    <div class="flex items-center justify-between">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Generar registro diario
-                        </button>
+        <div class="flex space-x-4 mt-8 h-3/5">
+            <div class="grid grid-cols-2 w-1/2 h-auto text-center">
+
+                {{-- Generar registro diario CARD --}}
+                <div class="relative group bg-white shadow-md rounded-xl h-auto w-11/12 flex flex-col justify-between">
+                    <div class="block w-full">
+                        <div class="p-6">
+                            <h3 class="text-center text-xl font-bold mb-2 uppercase">Sobre registro diario</h3>
+                            <p class="text-gray-600">Almacena tu historial financiero, registrando tanto el saldo disponible como la fecha exacta en el momento de la operación. Esta información será utilizada para proporcionarte una predicción basada en datos reales sobre tu situación financiera.</p>
+                        </div>
                     </div>
-                </form>
-                <form method="POST" action="{{ route('calculoia') }}" class="mb-4">
-                    @csrf
-                    @method('POST')
-                    <div class="flex items-center justify-between">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
-                            Llamada a la API
+                
+                    <form method="POST" action="{{ route('historicos.store') }}" class="flex justify-center m-2 mb-4 mt-auto">
+                        @csrf
+                        @method('POST')
+                        <button class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                            <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25m-9 2.25h4.5m.002-2.25h.005v.006H12v-.006Zm-.001 4.5h.006v.006h-.006v-.005Zm-2.25.001h.005v.006H9.75v-.006Zm-2.25 0h.005v.005h-.006v-.005Zm6.75-2.247h.005v.005h-.005v-.005Zm0 2.247h.006v.006h-.006v-.006Zm2.25-2.248h.006V15H16.5v-.005Z" />
+                            </svg>                              
+                            <p>Generar Registro</p>
                         </button>
+                    </form>
+                </div>
+                
+
+                {{-- Generar prediccion CARD --}}
+                <div class="relative group bg-white shadow-md rounded-xl h-auto w-11/12 flex flex-col justify-between">
+
+                    <div class="block w-full">
+                        <div class="p-6">
+                            <h3 class="text-center text-xl font-bold mb-2 uppercase">Sobre predicción</h3>
+                            <p class="text-gray-600">Realiza un analisis financiero a través de un objetivo económico seleccionado. Consulta cómo puedes ahorrar para lograr tu objetivo.</p>
+                        </div>
                     </div>
-                </form>
+                
+                    <form method="POST" action="{{ route('calculoia') }}" class="flex justify-center m-2 mb-4 mt-auto">
+                        @csrf
+                        @method('POST')
+                        <div class="flex justify-between">
+                            <button class="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                                <svg class="w-6 mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+                                </svg>
+                                <p>Generar predicción</p>
+                            </button>
+                        </div>                    
+                    </form>
+                </div>
             </div>
 
             <!-- Tabla "Mi Objetivo Financiero" -->
@@ -101,6 +128,7 @@
                     </tbody>
                 </table>
             </div>
+
         </div>
 
         <!-- Contenedor para las tablas de "Resultados" y "Mis Predicciones" -->
@@ -202,6 +230,14 @@
             aboutModalAyuda.classList.add('hidden');
         }
     });
+
+    // Quitar de la vista el error
+    if (document.getElementById('error-message')) {
+        let errorDiv = document.getElementById('error-message');
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 3000 );
+    }
 </script>
 @endsection
 
