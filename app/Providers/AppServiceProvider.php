@@ -21,9 +21,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         if (env('APP_ENV') !== "local") {
-            // Excluir rutas de API del forzado de HTTPS
+            // Verificar si la solicitud actual es para la ruta que necesita HTTP
             if (!$this->app->request->is('suggest_savings')) {
-                URL::forceScheme('https');
+                URL::forceScheme('https'); // Forzar HTTPS en rutas no excluidas
+            } else {
+                URL::forceScheme('http'); // Mantener HTTP en la ruta específica
             }
         }
     }
