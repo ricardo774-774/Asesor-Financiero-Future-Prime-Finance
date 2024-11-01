@@ -194,18 +194,20 @@
             </div>
         </div>
     </div>
-<!-- Modal -->
-<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
-        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-        <p class="mb-4">Bienvenido a tus Análisis Financieros. Ingresa una cantidad de dinero y el plazo en el que quieres conseguirlo. Con ayuda de nuestra Inteligencia Artificial vas a tener una predicción sobre el ahorro extra que necesitas para poder lograr tu objetivo. Además, verás una recomendación sobre lo que representa tu ahorro de manera visual. ¡No olvides hacer tu registro diario!
-            
-            
-            
-            </p>
-        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    
+    <!-- Modal -->
+    <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
+        <div class="modal-content">
+            <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
+                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
+                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
+                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
+                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
+                de las Finanzas Personales.</p>
+            <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+        </div>
     </div>
-</div>
 
 <script>
     // Obtener elementos del DOM

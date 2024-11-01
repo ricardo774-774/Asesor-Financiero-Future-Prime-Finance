@@ -113,17 +113,19 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
-        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-        <p class="mb-4">Bienvenido a la pantalla de Saldo, donde puedes visualizar tu información financiera de una manera clara. A los lados del recuadro central, están tus ingresos y tus gastos, divididos en una gráfica de pastel para que puedas ver tu información en forma de porcentaje. 
-            Al centro de la pantalla, está tu saldo actual.
-            Debajo de dicho dato, están dos botones, en caso de que necesites reiniciar tu información. El primer botón reinicia solo tus gastos y tus ingresos, y el segundo botón reinicia tu saldo, en caso de que quieras empezar desde cero.
-        </p>
-        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+    <!-- Modal -->
+    <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
+        <div class="modal-content">
+            <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
+                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
+                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
+                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
+                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
+                de las Finanzas Personales.</p>
+            <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+        </div>
     </div>
-</div>
 
 <script>
     // Obtener elementos del DOM

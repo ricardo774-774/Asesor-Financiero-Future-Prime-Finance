@@ -174,21 +174,20 @@
         </div>
     </div>
 </div>
-<!-- Modal -->
-<div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
-        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-        <p class="mb-4">Bienvenido a la pantalla de Ingresos, en la presente sección, podrás fijar dos datos vitales de tu economía personal: tus ingresos fijos y tus ingresos variables.
-            Tu ingreso fijo consiste en la cantidad de dinero que percibes de manera regular, mensualmente. Si llegas a hacer cambios, recuerda que solo se actualizan.
-            Por otro lado, puedes ingresar tus ingresos variables de manera acumulativa. Cada vez que tengas una entrada de dinero que no sea fija, haz registro de ella.
-            Al centro de la pantalla por debajo de ambos cuadros, podrás ver el balance de tus ingresos y debajo del mismo dos botones para consultar tu historial: la lista de cambios que ha habido.
-            
-            
-            
-            </p>
-        <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+
+
+    <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
+        <div class="modal-content">
+            <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
+                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
+                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
+                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
+                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
+                de las Finanzas Personales.</p>
+            <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+        </div>
     </div>
-</div>
 
 <script>
     // Obtener elementos del DOM

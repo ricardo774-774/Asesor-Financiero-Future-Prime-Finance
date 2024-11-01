@@ -92,7 +92,12 @@
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
         <div class="modal-content">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-            <p class="mb-4"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:...</p>
+            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
+                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
+                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
+                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
+                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
+                de las Finanzas Personales.</p>
             <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
         </div>
     </div>

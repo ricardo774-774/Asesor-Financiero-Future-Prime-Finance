@@ -49,9 +49,8 @@
                 <div id="aboutModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
                     <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl mx-auto max-h-screen overflow-y-auto">
                         <h2 class="text-xl font-bold mb-4">Acerca de Nosotros</h2>
-                        <p class="mb-4">Somos tres estudiantes de Ingeniería en Computación apasionados por la tecnología y comprometidos con la creación de soluciones innovadoras que marquen la diferencia en la vida de las personas. Nuestro proyecto es un asesor financiero diseñado para ser intuitivo, accesible y, sobre todo, efectivo en ayudar a las personas a gestionar sus finanzas personales de manera inteligente.</p>
-                        <p class="mb-4">Enfocados en el crecimiento económico personal, hemos desarrollado una plataforma que facilita el establecimiento y seguimiento de metas financieras claras. A través de herramientas tecnológicas de vanguardia, como la inteligencia artificial, ofrecemos una experiencia personalizada que impulsa a nuestros usuarios a alcanzar sus objetivos con confianza y precisión.</p>
-                        <p class="mb-4">Creemos que el futuro financiero comienza con decisiones bien informadas, y nuestro asesor está aquí para guiarte en cada paso del camino, haciendo que la planificación financiera sea más fácil, eficiente y a tu alcance.</p>
+                        <p class="mb-4 text-justify">Somos tres estudiantes de Ingeniería en Computación apasionados por la tecnología y comprometidos con la creación de soluciones innovadoras que marquen la diferencia en la vida de las personas. Nuestro proyecto es un asesor financiero diseñado para ser intuitivo, accesible y, sobre todo, efectivo en ayudar a las personas a gestionar sus finanzas personales de manera inteligente.</p>
+                        <p class="mb-4 text-justify">Creemos que el futuro financiero comienza con decisiones bien informadas, y nuestro asesor está aquí para guiarte en cada paso del camino, haciendo que la planificación financiera sea más fácil, eficiente y a tu alcance.</p>
                         <button id="closeModalBtn" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
                     </div>
                 </div>
