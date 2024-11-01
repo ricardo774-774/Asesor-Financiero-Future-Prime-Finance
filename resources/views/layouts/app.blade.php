@@ -47,7 +47,7 @@
                 
                 <!-- Modal -->
                 <div id="aboutModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-                    <div class="bg-white p-6 rounded-lg shadow-lg w-9/12">
+                    <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl mx-auto max-h-screen overflow-y-auto">
                         <h2 class="text-xl font-bold mb-4">Acerca de Nosotros</h2>
                         <p class="mb-4">Somos tres estudiantes de Ingeniería en Computación apasionados por la tecnología y comprometidos con la creación de soluciones innovadoras que marquen la diferencia en la vida de las personas. Nuestro proyecto es un asesor financiero diseñado para ser intuitivo, accesible y, sobre todo, efectivo en ayudar a las personas a gestionar sus finanzas personales de manera inteligente.</p>
                         <p class="mb-4">Enfocados en el crecimiento económico personal, hemos desarrollado una plataforma que facilita el establecimiento y seguimiento de metas financieras claras. A través de herramientas tecnológicas de vanguardia, como la inteligencia artificial, ofrecemos una experiencia personalizada que impulsa a nuestros usuarios a alcanzar sus objetivos con confianza y precisión.</p>
