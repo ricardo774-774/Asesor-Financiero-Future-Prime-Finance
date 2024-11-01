@@ -12,11 +12,11 @@
             border: 1px solid rgba(225, 225, 225, 0.8);
             box-shadow: 0px 0px 10px #ccc;
         }
-
+    
         #image {
             height: auto; /* Ajuste para que las imágenes se adapten */
         }
-
+    
         /* Estilo del modal */
         #aboutModalAyuda {
             position: fixed;
@@ -29,7 +29,7 @@
             justify-content: center;
             padding: 0;
         }
-
+    
         /* Estilo del contenido dentro del modal */
         #aboutModalAyuda .modal-content {
             background-color: white;
@@ -40,21 +40,20 @@
             max-width: 600px;
         }
     </style>
-
+    
     <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col">
         <div class="w-full sm:px-6 lg:px-8 mb-6">
             <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
-                <!-- Botón Ayuda a la izquierda -->
                 <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Ayuda</a> 
             </div>
-
+    
             <div class="w-full flex flex-col items-center space-y-10 lg:space-y-20">
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl px-6 mx-auto">
                     
                     <!-- Tarjeta Metas -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-52">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col min-h-[28rem]">
                         <a href="{{ route('meta.create') }}" class="block w-full h-full flex flex-col justify-between">
-                            <img src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <img src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-60 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">METAS</h3>
                                 <p class="text-gray-600">Configura y administra tus metas financieras aquí.</p>
@@ -63,9 +62,9 @@
                     </div>
                 
                     <!-- Tarjeta Análisis Financiero -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-52">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col min-h-[28rem]">
                         <a href="{{ route('previo.create') }}" class="block w-full h-full flex flex-col justify-between">
-                            <img src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <img src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-60 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">ANÁLISIS FINANCIERO</h3>
                                 <p class="text-gray-600">Realiza un análisis financiero basado en tus datos.</p>
@@ -74,9 +73,9 @@
                     </div>
                 
                     <!-- Tarjeta Generador -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-52">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col min-h-[28rem]">
                         <a href="{{ route('generador.index') }}" class="block w-full h-full flex flex-col justify-between">
-                            <img src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <img src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-60 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">GENERADOR</h3>
                                 <p class="text-gray-600">Inspírate por alguna de las sugerencias más populares entre la población</p>
