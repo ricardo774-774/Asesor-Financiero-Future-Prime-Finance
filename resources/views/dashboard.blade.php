@@ -41,7 +41,7 @@
         }
     </style>
 
-    <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-96 flex flex-col">
+    <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col">
         <div class="w-full sm:px-6 lg:px-8 mb-6">
             <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
                 <!-- Botón Ayuda a la izquierda -->
