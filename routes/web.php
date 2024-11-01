@@ -14,6 +14,7 @@ use App\Http\Controllers\MetasController;
 use App\Http\Controllers\PrevioController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\calculoiaController;
+use App\Http\Controllers\PDFController;
 
 Route::get('/test', function () {
     return view('test');
@@ -263,6 +264,9 @@ Route::controller(GeneradorController::class)->group(function () {
     Route::post('/generador', 'sugerencia')->middleware(['auth'])->name('generador.sugerencia'); 
 
 });
+
+Route::get('/descargar-registros', [PDFController::class, 'generarPDF'])->name('descargar-registros');
+
 
 
 require __DIR__.'/auth.php';
