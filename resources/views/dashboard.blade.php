@@ -52,7 +52,7 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl px-6 mx-auto">
                     
                     <!-- Tarjeta Metas -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-max">
                         <a href="{{ route('meta.create') }}" class="block w-full h-full flex flex-col justify-between">
                             <img src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
@@ -63,7 +63,7 @@
                     </div>
                 
                     <!-- Tarjeta Análisis Financiero -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-max">
                         <a href="{{ route('previo.create') }}" class="block w-full h-full flex flex-col justify-between">
                             <img src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
@@ -74,7 +74,7 @@
                     </div>
                 
                     <!-- Tarjeta Generador -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full min-h-max">
                         <a href="{{ route('generador.index') }}" class="block w-full h-full flex flex-col justify-between">
                             <img src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
                             <div class="p-6 flex-grow">
