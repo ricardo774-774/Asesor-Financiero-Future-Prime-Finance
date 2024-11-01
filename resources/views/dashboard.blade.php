@@ -14,7 +14,7 @@
         }
 
         #image {
-            height: 60%;
+            height: auto; /* Ajuste para que las imágenes se adapten */
         }
 
         /* Estilo del modal */
@@ -41,7 +41,7 @@
         }
     </style>
 
-    <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col">
+    <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-96 flex flex-col">
         <div class="w-full sm:px-6 lg:px-8 mb-6">
             <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
                 <!-- Botón Ayuda a la izquierda -->
@@ -49,14 +49,13 @@
             </div>
 
             <div class="w-full flex flex-col items-center space-y-10 lg:space-y-20">
-                
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-6xl px-6 mx-auto">
-    
+                    
                     <!-- Tarjeta Metas -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
-                        <a href="{{ route('meta.create') }}" class="block w-full h-full">
-                            <img id="image" src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
-                            <div class="p-6">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                        <a href="{{ route('meta.create') }}" class="block w-full h-full flex flex-col justify-between">
+                            <img src="{{ asset('metas-target.png') }}" alt="Metas" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">METAS</h3>
                                 <p class="text-gray-600">Configura y administra tus metas financieras aquí.</p>
                             </div>
@@ -64,10 +63,10 @@
                     </div>
                 
                     <!-- Tarjeta Análisis Financiero -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
-                        <a href="{{ route('previo.create') }}" class="block w-full h-full">
-                            <img id="image" src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
-                            <div class="p-6">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                        <a href="{{ route('previo.create') }}" class="block w-full h-full flex flex-col justify-between">
+                            <img src="{{ asset('analisis-financiero.jpg') }}" alt="Análisis Financiero" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">ANÁLISIS FINANCIERO</h3>
                                 <p class="text-gray-600">Realiza un análisis financiero basado en tus datos.</p>
                             </div>
@@ -75,10 +74,10 @@
                     </div>
                 
                     <!-- Tarjeta Generador -->
-                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105">
-                        <a href="{{ route('generador.index') }}" class="block w-full h-full">
-                            <img id="image" src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-48 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
-                            <div class="p-6">
+                    <div class="relative group bg-white shadow-md rounded-lg overflow-hidden transition transform hover:scale-105 flex flex-col h-full">
+                        <a href="{{ route('generador.index') }}" class="block w-full h-full flex flex-col justify-between">
+                            <img src="{{ asset('generador.png') }}" alt="Generador" class="w-full h-48 sm:h-56 md:h-64 object-cover transition duration-300 ease-in-out transform group-hover:scale-105">
+                            <div class="p-6 flex-grow">
                                 <h3 class="text-xl font-bold mb-2">GENERADOR</h3>
                                 <p class="text-gray-600">Inspírate por alguna de las sugerencias más populares entre la población</p>
                             </div>
@@ -94,13 +93,7 @@
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
         <div class="modal-content">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-            <p class="mb-4"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
-                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
-                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
-                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
-                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
-                de las Finanzas Personales..
-            </p>
+            <p class="mb-4"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:...</p>
             <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
         </div>
     </div>
