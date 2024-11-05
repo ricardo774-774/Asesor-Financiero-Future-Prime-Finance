@@ -2,10 +2,6 @@
 
 @section('css')
     <style>
-        body {
-            /* Allow normal body scrolling */
-        }
-
         .main-container {
             display: flex;
             align-items: center;
@@ -68,6 +64,28 @@
             width: 100%;
             height: auto;
         }
+
+        #aboutModalAyuda {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none; /* Oculto por defecto */
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            max-width: 70%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
     </style>
 @endsection
 
@@ -86,7 +104,7 @@
     </div>
 </div>
 
-<div class="main-container">
+<div id="min" class="main-container">
     <!-- First Pie Chart -->
     <div class="chart-container">
         <canvas id="pieChart1" class="chart-canvas"></canvas>
@@ -114,47 +132,60 @@
 </div>
 
     <!-- Modal -->
-    <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
-        <div class="modal-content">
+    <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
-                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
-                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
-                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
-                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
-                de las Finanzas Personales.</p>
+            <p class="mb-4 text-justify"> 
+                Bienvenido a la pantalla de Saldo, donde puedes visualizar tu información financiera de una manera clara. 
+            </p>
+            <p class="mb-4 text-justify">
+                A los lados del recuadro central, están tus ingresos y tus gastos, 
+                divididos en una gráfica de pastel para que puedas ver tu información en forma de porcentaje. 
+                Al centro de la pantalla, está tu saldo actual.
+                Debajo de dicho dato, están dos botones, en caso de que necesites reiniciar tu información. 
+                El primer botón reinicia solo tus gastos y tus ingresos, y el segundo botón reinicia tu saldo, 
+                en caso de que quieras empezar desde cero.
+            </p>
             <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
         </div>
     </div>
 
-<script>
-    // Obtener elementos del DOM
-    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
-    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
-    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
-
-    // Mostrar el modal
-    openModalBtnAyuda.addEventListener('click', function(event) {
-        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
-        aboutModalAyuda.classList.remove('hidden');
-    });
-
-    // Ocultar el modal
-    closeModalBtnAyuda.addEventListener('click', function() {
-        aboutModalAyuda.classList.add('hidden');
-    });
-
-    // Cerrar el modal si se hace clic fuera de él
-    window.addEventListener('click', function(event) {
-        if (event.target === aboutModalAyuda) {
-            aboutModalAyuda.classList.add('hidden');
-        }
-    });
-</script>
 @endsection
 
 @section('js')
     <!-- Include Chart.js from CDN -->
+    <script>
+        // Obtener elementos del DOM
+        const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+        const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+        const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+        // Abrir el modal
+        openModalBtnAyuda.addEventListener('click', function(event) {
+            event.preventDefault();
+            aboutModalAyuda.style.display = 'flex';
+        });
+
+        // Cerrar el modal al hacer clic en el botón de cierre
+        closeModalBtnAyuda.addEventListener('click', function() {
+            aboutModalAyuda.style.display = 'none';
+        });
+
+        // Cerrar el modal al hacer clic fuera del contenido
+        window.addEventListener('click', function(event) {
+            if (event.target === aboutModalAyuda) {
+                aboutModalAyuda.style.display = 'none';
+            }
+        });
+
+        // Quitar de la vista el error
+        if (document.getElementById('error-message')) {
+            let errorDiv = document.getElementById('error-message');
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000 );
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

@@ -10,6 +10,39 @@
     #min {
         min-height: 65vh; /* Altura mínima del 80% de la altura de la ventana */
     }
+
+    .main-box {
+        border: 1px solid rgba(225, 225, 225, 0.8);
+        box-shadow: 0px 0px 10px #ccc;
+    }
+    
+    #image {
+        height: auto; /* Ajuste para que las imágenes se adapten */
+    }
+
+    #aboutModalAyuda {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none; /* Oculto por defecto */
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Estilos para el contenido del modal */
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        max-width: 70%;
+        max-height: 80vh;
+        overflow-y: auto;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
 </style>
 
 
@@ -100,16 +133,21 @@
 
 <!-- Modal -->
 <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg w-400">
-        <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-        <p class="mb-4">Bienvenido al Generador de Ideas para Metas. Te sugerimos algunas metas populares para empezar a fomentar tu cultura de ahorro. Selecciona una, y en base a tu información financiera, te daremos una sugerencia de una meta para perseguir. Aunque no es obligatorio, creemos que te puede motivar a visualizar los resultados de tu ahorro. Haz clic en el botón de enviar para consultar tu predicción.
-            
-            
-            
-            </p>
+    <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
+        <h2 class="text-xl font-bold mb-4">Generador</h2>
+        <p class="mb-4 text-justify">
+            Bienvenido al Generador de Ideas para Metas. 
+        </p>
+        <p class="mb-4 text-justify">
+            Te sugerimos algunas metas populares para empezar a fomentar tu cultura de ahorro. 
+            Selecciona una, y en base a tu información financiera, te daremos una sugerencia de una meta para perseguir. 
+            Aunque no es obligatorio, creemos que te puede motivar a visualizar los resultados de tu ahorro. 
+            Haz clic en el botón de enviar para consultar tu predicción.
+        </p>
         <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
     </div>
 </div>
+
 
 <script>
     // Obtener elementos del DOM
@@ -117,21 +155,21 @@
     const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
     const aboutModalAyuda = document.getElementById('aboutModalAyuda');
 
-    // Mostrar el modal
+    // Abrir el modal
     openModalBtnAyuda.addEventListener('click', function(event) {
-        event.preventDefault(); // Evita el comportamiento predeterminado del enlace
-        aboutModalAyuda.classList.remove('hidden');
+        event.preventDefault();
+        aboutModalAyuda.style.display = 'flex';
     });
 
-    // Ocultar el modal
+    // Cerrar el modal al hacer clic en el botón de cierre
     closeModalBtnAyuda.addEventListener('click', function() {
-        aboutModalAyuda.classList.add('hidden');
+        aboutModalAyuda.style.display = 'none';
     });
 
-    // Cerrar el modal si se hace clic fuera de él
+    // Cerrar el modal al hacer clic fuera del contenido
     window.addEventListener('click', function(event) {
         if (event.target === aboutModalAyuda) {
-            aboutModalAyuda.classList.add('hidden');
+            aboutModalAyuda.style.display = 'none';
         }
     });
 

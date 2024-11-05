@@ -17,28 +17,30 @@
             height: auto; /* Ajuste para que las imágenes se adapten */
         }
     
-        /* Estilo del modal */
         #aboutModalAyuda {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.8);
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            display: none; /* Oculto por defecto */
             align-items: center;
             justify-content: center;
-            padding: 0;
         }
-    
-        /* Estilo del contenido dentro del modal */
-        #aboutModalAyuda .modal-content {
-            background-color: white;
+
+        /* Estilos para el contenido del modal */
+        .modal-content {
+            background-color: #fff;
             padding: 20px;
+            max-width: 70%;
+            max-height: 80vh;
+            overflow-y: auto;
             border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            width: 90%;
-            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
+
     </style>
     
     <div class="bg-gradient-to-b from-gray-100 to-gray-300 min-h-screen flex flex-col">
@@ -90,14 +92,26 @@
 
     <!-- Modal -->
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
-        <div class="modal-content">
+        <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
-            <p class="mb-4 text-justify"> Bienvenido a tu Asesor Financiero Personal Future Prime Finance:
-                Una herramienta pensada para ser el asesor financiero sencillo de utilizar y de 
-                acoplar a tu vida diaria. Disfruta de las diversas funcionalidades que ofrecemos, 
-                a través de registros sencillos de llevar, mediante una interfaz amigable y agradable, 
-                brindando una experiencia de calidad, siendo tu acompañamiento en el camino 
-                de las Finanzas Personales.</p>
+            <p class="mb-4 text-justify"> 
+                Bienvenido a tu Asesor Financiero Personal Future Prime Finance. Recuerda que siempre puedes utilizar este tutorial si en algún momento te sientes perdido. 
+            </p>
+            <p class="mb-4 text-justify">   
+                En cada pantalla del programa encontrarás una sección informativa, con el propósito de orientar y responder tus dudas en caso de que experimentes problemas mientras disfrutas del sistema.
+                Future Prime Finance es un asesor financiero personal que te ayuda a registrar y a concientizar tu información económica, en pro de encaminar tus decisiones financieras hacia la mejoría, basado en la madurez, la planeación a largo plazo y el ahorro.
+            </p>
+            <p class="mb-4 text-justify">   
+                En el menú superior podrás encontrar tres pestañas donde llevarás a cabo tus registros financieros: estarás estableciendo tus ingresos y tus gastos para poder visualizar tu saldo y la misma información de una manera gráfica, para facilitar la perspectiva sobre el cómo utilizas tu dinero.
+            </p>
+            <p class="mb-4 text-justify">    
+                Al centro de la pantalla principal, podrás encontrar tres opciones, que corresponden a las herramientas que te brindamos.
+                Una vez que hayas hecho los registros correspondientes de tu información, experimenta con la ayuda de la Inteligencia Artificial, y fija metas u objetivos financieros. Visualiza el ahorro que necesitas y recuerda que cualquier meta que te propongas se puede lograr, pero siempre recordando la importancia del ahorro, y aprovecha las recomendaciones que el sistema te ofrecerá para empezar a hacer modificaciones a la forma en la que aprovechas tu dinero. 
+                De parte del equipo de desarrollo, esperamos que este programa te aporte, aunque sea un poco en el camino de tu crecimiento financiero.
+            </p>
+            <p class="mb-4 text-justify">
+                ¡Recuerda que los grandes cambios comienzan día con día!
+            </p>
             <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
         </div>
     </div>
@@ -107,21 +121,21 @@
         const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
         const aboutModalAyuda = document.getElementById('aboutModalAyuda');
 
+        // Abrir el modal
         openModalBtnAyuda.addEventListener('click', function(event) {
             event.preventDefault();
-            aboutModalAyuda.classList.remove('hidden');
-            aboutModalAyuda.classList.add('flex'); 
+            aboutModalAyuda.style.display = 'flex';
         });
 
+        // Cerrar el modal al hacer clic en el botón de cierre
         closeModalBtnAyuda.addEventListener('click', function() {
-            aboutModalAyuda.classList.add('hidden');
-            aboutModalAyuda.classList.remove('flex'); 
+            aboutModalAyuda.style.display = 'none';
         });
 
+        // Cerrar el modal al hacer clic fuera del contenido
         window.addEventListener('click', function(event) {
             if (event.target === aboutModalAyuda) {
-                aboutModalAyuda.classList.add('hidden');
-                aboutModalAyuda.classList.remove('flex');
+                aboutModalAyuda.style.display = 'none';
             }
         });
     </script>
