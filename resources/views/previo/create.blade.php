@@ -71,12 +71,12 @@
             @endif
             <div class="m-4">
                 <label for="cantidad" class="block text-gray-700 text-sm font-bold mb-2">Ingresa tu meta en cantidad de dinero:</label>
-                <input type="number" id="cantidad" name="cantidad" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese una cantidad" required>
+                <input type="number" id="cantidad" name="cantidad" class="shadow appearance-none border rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" placeholder="Ingrese una cantidad" required>
             </div>
     
             <div class="m-4">
                 <label for="fecha" class="block text-gray-700 text-sm font-bold mb-2">Ingresa la fecha objetivo de tu meta:</label>
-                <input type="date" id="fecha" name="fecha" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                <input type="date" id="fecha" name="fecha" class="shadow appearance-none border rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
             </div>
     
             <div class="flex items-center justify-center">
@@ -87,7 +87,7 @@
         </form>
     
         <!-- Sección de "Generar Registro" y "Generar Predicción" -->
-        <div class="flex flex-col lg:flex-row lg:space-x-4 mt-8">
+        <div class="flex flex-col lg:flex-row lg:space-x-4 m-4 mt-8">
             <div class="flex flex-col lg:w-1/2 space-y-4">
                 <!-- Generar registro diario CARD -->
                 <div class="bg-white shadow-md rounded-xl p-6 flex flex-col justify-between">
@@ -144,7 +144,7 @@
         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mt-8">
 
             <!-- Tabla "Resultados" -->
-            <div class="md:w-1/2 text-center mb-4">
+            <div class="md:w-1/2 text-center mb-4 m-4">
                 @if (isset($historicoapi) && $historicoapi->count() > 0)
                     <h2 class="text-xl font-bold mb-2">Resultados</h2>
                     <table class="w-full bg-white table-auto">
@@ -167,7 +167,7 @@
             </div>
 
             <!-- Tabla "Mis Predicciones" -->
-            <div class="md:w-1/2 text-center">
+            <div class="md:w-1/2 text-center m-4">
                 @if (isset($response))
                     <div class="mb-4">
                         <h2 class="text-xl font-bold mb-2 text-center">Mis Predicciones</h2>
@@ -205,7 +205,7 @@
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
             <p class="mb-4 text-justify">
-                Bienvenido a tus Análisis Financiero. 
+                Bienvenido al analizador financiero. 
             </p>
             <p class="mb-4 text-justify">
                 Ingresa una cantidad de dinero y el plazo en el que quieres conseguirlo. 

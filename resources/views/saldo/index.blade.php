@@ -134,7 +134,7 @@
     <!-- Modal -->
     <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
-            <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+            <h2 class="text-xl font-bold mb-4">Saldo</h2>
             <p class="mb-4 text-justify"> 
                 Bienvenido a la pantalla de Saldo, donde puedes visualizar tu información financiera de una manera clara. 
             </p>

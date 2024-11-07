@@ -210,8 +210,10 @@
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
             <h2 class="text-xl font-bold mb-4">Metas</h2>
-            <p class="mb-4 text-justify"> 
+            <p class="mb-4 text-justify">
                 Bienvenido a la pantalla de Metas. 
+            </p>
+            <p class="mb-4 text-justify"> 
                 Te sugerimos utilizar el generador de ideas para apoyarte en seleccionar un objetivo. 
                 O bien, elige tu meta por tu cuenta. Después de seleccionarla, consulta nuestra Inteligencia 
                 Artificial para obtener una predicción sobre el ahorro que necesitas considerar para lograr tu meta. 

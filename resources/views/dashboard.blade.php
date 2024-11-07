@@ -95,7 +95,7 @@
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
             <h2 class="text-xl font-bold mb-4">Ayuda</h2>
             <p class="mb-4 text-justify"> 
-                Bienvenido a tu Asesor Financiero Personal Future Prime Finance. Recuerda que siempre puedes utilizar este tutorial si en algún momento te sientes perdido. 
+                Bienvenido a tu asesor financiero personal Future Prime Finance. Recuerda que siempre puedes utilizar este tutorial si en algún momento te sientes perdido. 
             </p>
             <p class="mb-4 text-justify">   
                 En cada pantalla del programa encontrarás una sección informativa, con el propósito de orientar y responder tus dudas en caso de que experimentes problemas mientras disfrutas del sistema.
