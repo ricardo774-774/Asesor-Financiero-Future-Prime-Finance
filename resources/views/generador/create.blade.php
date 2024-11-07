@@ -136,7 +136,7 @@
     <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
         <h2 class="text-xl font-bold mb-4">Generador</h2>
         <p class="mb-4 text-justify">
-            Bienvenido al Generador de Ideas para Metas. 
+            Bienvenido al Generador de Ideas. 
         </p>
         <p class="mb-4 text-justify">
             Te sugerimos algunas metas populares para empezar a fomentar tu cultura de ahorro. 

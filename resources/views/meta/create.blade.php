@@ -107,7 +107,7 @@
                 <div class="relative group bg-white shadow-md rounded-xl h-auto w-full flex flex-col justify-between">
                     <div class="p-6">
                         <h3 class="text-center text-xl font-bold mb-2 uppercase">Sobre registro diario</h3>
-                        <p class="text-gray-600">Almacena tu historial financiero, registrando tanto el saldo disponible como la fecha exacta en el momento de la operación. Esta información será utilizada para proporcionarte una predicción basada en datos reales sobre tu situación financiera.</p>
+                        <p class="text-gray-600 text-justify">Almacena tu historial financiero, registrando tanto el saldo disponible como la fecha exacta en el momento de la operación. Esta información será utilizada para proporcionarte una predicción basada en datos reales sobre tu situación financiera.</p>
                     </div>
                     <form method="POST" action="{{ route('historicos.store') }}" class="flex justify-center m-2 mb-4 mt-auto">
                         @csrf
@@ -126,7 +126,7 @@
                 <div class="relative group bg-white shadow-md rounded-xl h-auto w-full flex flex-col justify-between">
                     <div class="p-6">
                         <h3 class="text-center text-xl font-bold mb-2 uppercase">Sobre predicción</h3>
-                        <p class="text-gray-600">Con base en la meta que has establecido y el análisis de tu historial financiero, haz clic para obtener una estimación detallada del ahorro adicional que podrías necesitar para alcanzar tu objetivo de manera efectiva.</p>
+                        <p class="text-gray-600 text-justify">Con base en la meta que has establecido y el análisis de tu historial financiero, haz clic para obtener una estimación detallada del ahorro adicional que podrías necesitar para alcanzar tu objetivo de manera efectiva.</p>
                     </div>
                     <form method="POST" action="{{ route('meta.calculoia') }}" class="flex justify-center m-2 mb-4 mt-auto">
                         @csrf

@@ -203,13 +203,13 @@
     <!-- Modal -->
     <div id="aboutModalAyuda" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden">
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
-            <h2 class="text-xl font-bold mb-4">Ayuda</h2>
+            <h2 class="text-xl font-bold mb-4">Análisis Financiero</h2>
             <p class="mb-4 text-justify">
                 Bienvenido al analizador financiero. 
             </p>
             <p class="mb-4 text-justify">
                 Ingresa una cantidad de dinero y el plazo en el que quieres conseguirlo. 
-                Con ayuda de nuestra Inteligencia Artificial vas a tener una predicción sobre el ahorro extra
+                Con ayuda de nuestra inteligencia artificial vas a tener una predicción sobre el ahorro extra
                 que necesitas para poder lograr tu objetivo. Además, verás una recomendación sobre lo que representa 
                 tu ahorro de manera visual. ¡No olvides hacer tu registro diario!            
             </p>
