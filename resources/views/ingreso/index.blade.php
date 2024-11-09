@@ -215,7 +215,7 @@
 
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
-            <h2 class="text-xl font-bold mb-4">Mis ingresos</h2>
+            <h2 class="text-xl font-bold mb-4">Ingresos</h2>
             <p class="mb-4 text-justify">
                 Bienvenido a la pantalla de Ingresos. 
             </p>
