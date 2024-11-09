@@ -18,9 +18,10 @@ class HistoricosSeeder extends Seeder
         // Obtener la fecha y hora actual
         $now = Carbon::now();
 
-        // Para el userID 11: 30 días de septiembre
+        // Para el userID 11: 30 días, terminando el 20 de noviembre
         $userID = 11;
-        $startDate = Carbon::create(2024, 9, 1); // 1 de septiembre de 2024
+        $endDate = Carbon::create(2024, 11, 20); // 20 de noviembre de 2024
+        $startDate = $endDate->copy()->subDays(30 - 1); // Restar 29 días para comenzar el 23 de octubre de 2024
 
         for ($i = 0; $i < 30; $i++) {
             DB::table('historicos')->insert([
@@ -32,9 +33,9 @@ class HistoricosSeeder extends Seeder
             ]);
         }
 
-        // Para el userID 22: 90 días de julio, agosto, septiembre
+        // Para el userID 22: 90 días, terminando el 20 de noviembre
         $userID = 22;
-        $startDate = Carbon::create(2024, 7, 1); // 1 de julio de 2024
+        $startDate = $endDate->copy()->subDays(90 - 1); // Restar 89 días para comenzar el 23 de agosto de 2024
 
         for ($i = 0; $i < 90; $i++) {
             DB::table('historicos')->insert([
@@ -46,9 +47,9 @@ class HistoricosSeeder extends Seeder
             ]);
         }
 
-        // Para el userID 33: 180 días de abril a septiembre
+        // Para el userID 33: 180 días, terminando el 20 de noviembre
         $userID = 33;
-        $startDate = Carbon::create(2024, 4, 1); // 1 de abril de 2024
+        $startDate = $endDate->copy()->subDays(180 - 1); // Restar 179 días para comenzar el 24 de mayo de 2024
 
         for ($i = 0; $i < 180; $i++) {
             DB::table('historicos')->insert([
