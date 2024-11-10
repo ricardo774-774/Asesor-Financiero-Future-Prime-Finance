@@ -160,7 +160,7 @@
     </div>
 
     <div class="mt-20 flex justify-center items-center flex-col w-full">
-        <label for="disabledInputCenter" class="block text-xl font-semibold text-gray-800 mb-4">BALANCE DE INGRESOS</label>
+        <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-700 mb-2 text-center uppercase">BALANCE DE INGRESOS</label>
         <input type="text" id="disabledInputCenter" class="balance-input" value="{{ isset($ingreso->ingreso) ? $ingreso->ingreso->ingreso_fijo + $ingreso->ingreso->ingreso_variable : 0 }}" disabled name="ingreso_fijo">
     </div>
 

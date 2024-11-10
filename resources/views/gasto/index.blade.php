@@ -186,8 +186,8 @@
 
     <div class="flex justify-center items-center mt-12">
         <div class="flex flex-col justify-center w-full md:w-1/3">
-            <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-700 mb-2 text-center">Balance Actual</label>
-            <input type="text" id="disabledInputCenter" class="balance-input" value="{{ $balance ?? 0 }}" disabled>
+            <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-700 mb-2 text-center uppercase">Balance Actual</label>
+            <input type="text" id="disabledInputCenter" class="balance-input" value="{{ $totalSales ?? 0 }}" disabled>
         </div>
     </div>
     
