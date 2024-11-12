@@ -25,12 +25,12 @@
     </style>
 </head>
 
-<body class="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-cover bg-center text-gray-200" style="background-image: url('{{asset('money-fond.png')}}');">
+<body class="flex flex-col lg:flex-row items-center justify-center min-h-screen bg-cover bg-center text-gray-100" style="background-image: url('{{asset('money-fond.png')}}');">
     
     <!-- Primera columna - Presentación -->
     <div class="flex flex-col items-center text-center lg:text-left p-8 bg-opacity-60 bg-black rounded-lg max-w-md mx-4 lg:mx-0 lg:min-w-3/5">
         <h1 class="text-4xl lg:text-6xl font-bold leading-tight mb-4">Bienvenidos a Future Prime Finance</h1>
-        <p class="text-lg lg:text-xl leading-relaxed">En Future Prime Finance, estamos dedicados a ayudarte a alcanzar tus metas financieras. Ya sea que estés buscando ahorrar para el futuro, invertir sabiamente o simplemente manejar mejor tu dinero, estamos aquí para ofrecerte las herramientas y el conocimiento que necesitas.</p>
+        <p class="text-lg lg:text-xl leading-relaxed text-justify">En Future Prime Finance, estamos dedicados a ayudarte a alcanzar tus metas financieras. Ya sea que estés buscando ahorrar para el futuro, invertir sabiamente o simplemente manejar mejor tu dinero, estamos aquí para ofrecerte las herramientas y el conocimiento que necesitas.</p>
     </div>
     
     <!-- Segunda columna - Acceso/Registro -->
