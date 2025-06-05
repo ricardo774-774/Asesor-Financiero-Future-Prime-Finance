@@ -35,7 +35,7 @@
 @section('content')
     <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
         <!-- Botón Ayuda a la izquierda -->
-        <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+        <a href="#" id="openModalBtnAyuda" class="tutorial-btn">Tutorial</a>  
     </div>
 
     <div class="container mx-auto mt-10">

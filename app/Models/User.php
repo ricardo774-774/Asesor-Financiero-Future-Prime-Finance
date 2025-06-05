@@ -24,7 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'google_id',
+        'avatar',
     ];
+    
     public function Ingreso(): HasOne
     {
         return $this->hasOne(Ingreso::class,'userID');
@@ -44,6 +47,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(meta::class,'userID');
     }
+    
     /**
      * The attributes that should be hidden for serialization.
      *

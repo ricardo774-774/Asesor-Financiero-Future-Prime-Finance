@@ -267,6 +267,4 @@ Route::controller(GeneradorController::class)->group(function () {
 
 Route::get('/descargar-registros', [PDFController::class, 'generarPDF'])->name('descargar-registros');
 
-
-
 require __DIR__.'/auth.php';

@@ -64,8 +64,8 @@
     @endphp
 
     <div class="main-container min-w-screen">
-        <div class="w-full bg-gray-100 p-4 flex flex-col md:flex-row justify-between items-start md:items-center">
-            <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded mb-4 md:mb-0">Tutorial</a>  
+        <div class="w-full bg-white p-4 flex flex-col md:flex-row justify-between items-start md:items-center shadow-sm border-b border-slate-200">
+            <a href="#" id="openModalBtnAyuda" class="tutorial-btn mb-4 md:mb-0">Tutorial</a>  
             <a href="{{ route('descargar-registros') }}" class="btn btn-primary mb-4 md:mb-0 text-center self-center">Descargar Registros en PDF</a>
             <button id="printButton" class="btn btn-secondary text-center self-center">Imprimir Saldo</button>
             <script>
@@ -74,8 +74,14 @@
                 });
             </script>
         </div>
+
+        <br>
+        <h2 class="mt-4 font-semibold text-2xl text-blue-800 leading-tight text-center">
+            {{ __('MIS SALDO') }}
+        </h2>
+        <br>
     
-        <div id="min" class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 p-4 md:mr-8">
+        <div id="min" class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 p-4">
             <div id="first-chart" class="chart-container max-w-xs w-full">
                 <canvas id="pieChart1" class="chart-canvas"></canvas>
             </div>

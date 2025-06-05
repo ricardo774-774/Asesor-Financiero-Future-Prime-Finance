@@ -3,15 +3,16 @@
 @section('css')
     <style>
         .input-container {
-            background-image: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #1e40af, #3b82f6);
             padding: 2rem;
             border-radius: 12px;
-            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 14px rgba(30, 64, 175, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
         }
         .input-field {
             background-color: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(10px);
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             color: white;
             font-size: 1.25rem;
             text-align: center;
@@ -24,10 +25,13 @@
         .input-field:disabled {
             cursor: not-allowed;
         }
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
         .select-field {
             background-color: rgba(255, 255, 255, 0.25);
             color: white;
-            border: none;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             font-size: 1.25rem;
             text-align: center;
             border-radius: 8px;
@@ -37,39 +41,39 @@
             appearance: none;
         }
         .select-field option {
-            background-color: #333;
+            background-color: #1e40af;
             color: white;
         }
         .btn-submit {
-            background-color: #6a11cb;
-            background-image: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            background: linear-gradient(135deg, #1e40af 0%, #059669 100%);
             transition: all 0.3s ease;
         }
         .btn-submit:hover {
-            background-image: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%);
+            background: linear-gradient(135deg, #1d4ed8 0%, #047857 100%);
             transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
         }
         .balance-input {
-            background-color: #38a169;
+            background-color: #059669;
             color: white;
             font-size: 1.5rem;
             text-align: center;
             border-radius: 8px;
-            padding: 0.5rem;
+            padding: 0.75rem;
             width: 100%;
-            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 8px rgba(5, 150, 105, 0.2);
+            border: 1px solid #10b981;
         }
         .table-header {
-            background-color: #333;
-            color: #f9f9f9;
+            background-color: #1e40af;
+            color: #ffffff;
         }
         .table-row {
-            background-color: #fff;
-            color: #333;
+            background-color: #ffffff;
+            color: #374151;
         }
         .table-row:nth-child(even) {
-            background-color: #f2f2f2;
+            background-color: #f8fafc;
         }
         #aboutModalAyuda {
             position: fixed;
@@ -84,24 +88,30 @@
             justify-content: center;
         }
         .modal-content {
-            background-color: #fff;
+            background-color: #ffffff;
             padding: 20px;
             max-width: 90%;
             max-height: 80vh;
             overflow-y: auto;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border: 1px solid #e2e8f0;
         }
     </style>
 @endsection
 
 @section('content')
-    <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <div class="w-full bg-white p-4 flex justify-between items-center shadow-sm border-b border-slate-200">
         <!-- Botón Ayuda a la izquierda -->
-        <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+        <a href="#" id="openModalBtnAyuda" class="tutorial-btn">Tutorial</a>  
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-self-auto ml-auto mr-auto mt-16 w-full px-6">
+    <br>
+    <h2 class="mt-4 font-semibold text-2xl text-blue-800 leading-tight text-center">
+        {{ __('MIS GASTOS') }}
+    </h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 justify-self-auto ml-auto mr-auto mt-10 w-full px-6">
         <div class="flex flex-col">
             <form method="POST" action="{{route('gasto.store') }}" class="input-container">
                 @csrf
@@ -163,19 +173,19 @@
     <!-- Tabla de valores por categoría -->
     <div class="flex justify-center mt-8 md:justify-start md:ml-6">
         <div class="text-center min-w-72 md:min-w-96">
-            <label class="block text-xl font-semibold text-gray-700 mb-2">Valores por Categoría</label>
-            <table class="min-w-full bg-white border border-gray-300 shadow-sm rounded-md">
+            <label class="block text-xl font-semibold text-gray-800 mb-2">Valores por Categoría</label>
+            <table class="min-w-full bg-white border border-slate-300 shadow-lg rounded-lg overflow-hidden">
                 <thead class="table-header">
                     <tr>
-                        <th class="py-3 px-4 border-b">Categoría</th>
-                        <th class="py-3 px-4 border-b">Monto</th>
+                        <th class="py-3 px-4 border-b border-blue-700">Categoría</th>
+                        <th class="py-3 px-4 border-b border-blue-700">Monto</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($historial as $item)
-                    <tr class="table-row">
-                        <td class="py-3 px-4 border-b">{{ $item->categoria->Nombre }}</td>
-                        <td class="py-3 px-4 border-b">{{ $item->monto ?? 'N/A' }}</td>
+                    <tr class="table-row hover:bg-blue-50 transition duration-200">
+                        <td class="py-3 px-4 border-b border-slate-200">{{ $item->categoria->Nombre }}</td>
+                        <td class="py-3 px-4 border-b border-slate-200">{{ $item->monto ?? 'N/A' }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -186,7 +196,7 @@
 
     <div class="flex justify-center items-center mt-12">
         <div class="flex flex-col justify-center w-full md:w-1/3">
-            <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-700 mb-2 text-center uppercase">Balance Actual</label>
+            <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-800 mb-2 text-center uppercase">Balance Actual</label>
             <input type="text" id="disabledInputCenter" class="balance-input" value="{{ $totalSales ?? 0 }}" disabled>
         </div>
     </div>
@@ -194,7 +204,7 @@
 
     <!-- Nueva fila para el botón y la tabla de historial -->
     <div class="flex flex-col items-center mt-12 px-4">
-        <button id="" onclick="document.getElementById('tabla2Div').classList.toggle('hidden')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-md shadow-lg transition duration-200 mb-4">
+        <button id="" onclick="document.getElementById('tabla2Div').classList.toggle('hidden')" class="bg-green-600 hover:bg-green-500 text-white font-bold py-3 px-6 rounded-md shadow-lg transition duration-300 mb-4">
             Mostrar Historial
         </button>
         <div id="tabla2Div" class="w-full hidden overflow-x-auto">

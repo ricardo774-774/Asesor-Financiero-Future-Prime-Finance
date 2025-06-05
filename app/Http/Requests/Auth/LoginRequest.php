@@ -29,6 +29,38 @@ class LoginRequest extends FormRequest
         return [
             'email' => ['required', 'string', 'email'],
             'password' => ['required', 'string'],
+            'captcha_answer' => ['required', 'integer'],
+            'captcha_result' => ['required', 'integer'],
+        ];
+    }
+
+    /**
+     * Configure the validator instance.
+     *
+     * @param  \Illuminate\Validation\Validator  $validator
+     * @return void
+     */
+    public function withValidator($validator)
+    {
+        $validator->after(function ($validator) {
+            if ($this->input('captcha_answer') != $this->input('captcha_result')) {
+                $validator->errors()->add('captcha_answer', 'La respuesta del captcha es incorrecta.');
+            }
+        });
+    }
+
+    /**
+     * Get custom messages for validator errors.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'captcha_answer.required' => 'La verificación de seguridad es obligatoria.',
+            'captcha_answer.integer' => 'La respuesta debe ser un número.',
+            'captcha_result.required' => 'Error en la verificación de seguridad.',
+            'captcha_result.integer' => 'Error en la verificación de seguridad.',
         ];
     }
 

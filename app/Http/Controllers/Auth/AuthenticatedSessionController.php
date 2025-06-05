@@ -26,12 +26,11 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
         $user = Auth::user();
 
-        if ($user) {
+        $request->session()->regenerate();
 
+        if ($user) {
             $roles = $user->getRoleNames();
             // Redireccionar según el rol del usuario
             if ($roles->contains('admin')) {
@@ -41,7 +40,8 @@ class AuthenticatedSessionController extends Controller
             }
         }
 
-        //return redirect()->intended(route('dashboard', absolute: false));
+        // Default fallback
+        return redirect()->intended(route('dashboard', absolute: false));
     }
 
     /**

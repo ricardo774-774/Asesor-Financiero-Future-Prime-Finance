@@ -8,18 +8,19 @@
     }
 
     .form-container {
-        background: linear-gradient(135deg, #1f4037, #99f2c8); /* Contraste verde oscuro a verde claro */
+        background: linear-gradient(135deg, #1e40af, #3b82f6);
         padding: 2rem;
         border-radius: 12px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 14px rgba(30, 64, 175, 0.2);
+        border: 1px solid rgba(59, 130, 246, 0.3);
         color: white;
     }
 
     .form-input {
-        background-color: rgba(255, 255, 255, 0.2); /* Mayor contraste en fondo de input */
+        background-color: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(10px);
-        border: none;
-        color: #f9f9f9; /* Texto más claro */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: white;
         font-size: 1.25rem;
         text-align: center;
         border-radius: 8px;
@@ -32,50 +33,59 @@
         cursor: not-allowed;
     }
 
+    .form-input::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+    }
+
     .balance-input {
-        background-color: #38a169; /* Verde para el valor del saldo */
+        background-color: #059669;
         color: white;
         font-size: 1.5rem;
         text-align: center;
         border-radius: 8px;
-        padding: 0.5rem;
-        width: 50%; /* Más pequeño */
-        box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 0.75rem;
+        width: 50%;
+        box-shadow: 0 4px 8px rgba(5, 150, 105, 0.2);
+        border: 1px solid #10b981;
     }
 
     .btn-submit {
-        background-color: #ff416c;
-        background-image: linear-gradient(135deg, #ff4b2b, #ff416c); /* Gradiente rojo a rosa oscuro */
+        background: linear-gradient(135deg, #1e40af 0%, #059669 100%);
         transition: all 0.3s ease;
     }
 
     .btn-submit:hover {
-        background-image: linear-gradient(135deg, #ff416c, #ff4b2b); /* Inversión del gradiente */
+        background: linear-gradient(135deg, #1d4ed8 0%, #047857 100%);
         transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 8px 20px rgba(30, 64, 175, 0.3);
     }
 
     .table-header {
-        background-color: #333; /* Fondo oscuro para encabezado de tabla */
-        color: #f9f9f9; /* Texto claro */
+        background-color: #1e40af;
+        color: #ffffff;
     }
 
     .table-row {
-        background-color: #fff; /* Fondo blanco para filas */
-        color: #333; /* Texto oscuro */
+        background-color: #ffffff;
+        color: #374151;
     }
 
     .table-row:nth-child(even) {
-        background-color: #f2f2f2; /* Alternar colores de filas */
+        background-color: #f8fafc;
+    }
+
+    .table-row:hover {
+        background-color: #eff6ff;
+        transition: background-color 0.2s ease;
     }
 
     /* Responsividad */
     @media (max-width: 768px) {
         .grid-cols-2 {
-            grid-template-columns: 1fr; /* Cambiar a una sola columna en pantallas pequeñas */
+            grid-template-columns: 1fr;
         }
         .balance-input {
-            width: 100%; /* Ajustar al 100% en dispositivos móviles */
+            width: 100%;
         }
         .px-36 {
             padding-left: 1rem;
@@ -84,37 +94,43 @@
     }
 
     #aboutModalAyuda {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-            display: none; /* Oculto por defecto */
-            align-items: center;
-            justify-content: center;
-        }
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
 
-    /* Estilos para el contenido del modal */
     .modal-content {
-        background-color: #fff;
+        background-color: #ffffff;
         padding: 20px;
         max-width: 90%;
         max-height: 80vh;
         overflow-y: auto;
         border-radius: 8px;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        border: 1px solid #e2e8f0;
     }
 </style>
 @endsection
 
 @section('content')
-    <div class="w-full bg-gray-100 p-4 flex justify-between items-center">
+    <div class="w-full bg-white p-4 flex justify-between items-center shadow-sm border-b border-slate-200">
         <!-- Botón Ayuda a la izquierda -->
-        <a href="#" id="openModalBtnAyuda" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded">Tutorial</a>  
+        <a href="#" id="openModalBtnAyuda" class="tutorial-btn">Tutorial</a>  
     </div>
-    <div class="grid grid-cols-2 gap-2 justify-center items-center ml-auto mr-auto mt-16 w-full max-w-6xl px-6 md:px-12 lg:px-16 xl:px-24">
+
+    <br>
+    <h2 class="mt-4 font-semibold text-2xl text-blue-800 leading-tight text-center">
+        {{ __('MIS INGRESOS') }}
+    </h2>
+
+    <div class="grid grid-cols-2 gap-2 justify-center items-center ml-auto mr-auto mt-10 w-full max-w-6xl px-6 md:px-12 lg:px-16 xl:px-24">
         
         <div class="form-container">
             <form method="POST" action="{{ $condicion ? route('ingreso.update', $ingreso->ingreso->id) : route('ingreso.store') }}">
@@ -160,7 +176,7 @@
     </div>
 
     <div class="mt-20 flex justify-center items-center flex-col w-full">
-        <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-700 mb-2 text-center uppercase">BALANCE DE INGRESOS</label>
+        <label for="disabledInputCenter" class="block text-2xl font-semibold text-gray-800 mb-2 text-center uppercase">BALANCE DE INGRESOS</label>
         <input type="text" id="disabledInputCenter" class="balance-input" value="{{ isset($ingreso->ingreso) ? $ingreso->ingreso->ingreso_fijo + $ingreso->ingreso->ingreso_variable : 0 }}" disabled name="ingreso_fijo">
     </div>
 
@@ -168,20 +184,20 @@
         <div class="flex flex-col items-center mb-8 lg:mb-0">
             <button onclick="toggleTable('tabla1Div')" class="btn-submit text-white font-bold py-3 px-6 rounded-md shadow-lg mb-4">Mostrar HISTORIAL</button>
             <div id="tabla1Div" class="w-full hidden">
-                <table class="min-w-full bg-white text-center shadow-lg rounded-md">
+                <table class="min-w-full bg-white text-center shadow-lg rounded-lg border border-slate-300 overflow-hidden">
                     <thead class="table-header">
                         <tr>
-                            <th class="py-3 px-2">CAMBIO</th>
-                            <th class="py-3 px-2">CANTIDAD</th>
-                            <th class="py-3">FECHA</th>
+                            <th class="py-3 px-2 border-b border-blue-700">CAMBIO</th>
+                            <th class="py-3 px-2 border-b border-blue-700">CANTIDAD</th>
+                            <th class="py-3 border-b border-blue-700">FECHA</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($historial_fijo as $row)
                         <tr class="table-row">
-                            <td class="py-3 px-2">{{ $index_hif++ }}</td>
-                            <td class="py-3 px-2">{{ $row['ingreso_fijo'] }}</td>
-                            <td class="py-3 fecha-celda">{{ $row['updated_at'] }}</td>
+                            <td class="py-3 px-2 border-b border-slate-200">{{ $index_hif++ }}</td>
+                            <td class="py-3 px-2 border-b border-slate-200">{{ $row['ingreso_fijo'] }}</td>
+                            <td class="py-3 fecha-celda border-b border-slate-200">{{ $row['updated_at'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -191,20 +207,20 @@
         <div class="flex flex-col items-center mb-4">
             <button onclick="toggleTable('tabla2Div')" class="btn-submit text-white font-bold py-3 px-6 rounded-md shadow-lg mb-4">Mostrar HISTORIAL</button>
             <div id="tabla2Div" class="w-full hidden">
-                <table class="min-w-full bg-white text-center shadow-lg rounded-md">
+                <table class="min-w-full bg-white text-center shadow-lg rounded-lg border border-slate-300 overflow-hidden">
                     <thead class="table-header">
                         <tr>
-                            <th class="py-3 px-2">CAMBIO</th>
-                            <th class="py-3 px-2">CANTIDAD</th>
-                            <th class="py-3">FECHA</th>
+                            <th class="py-3 px-2 border-b border-blue-700">CAMBIO</th>
+                            <th class="py-3 px-2 border-b border-blue-700">CANTIDAD</th>
+                            <th class="py-3 border-b border-blue-700">FECHA</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($historial_variable as $row)
                         <tr class="table-row">
-                            <td class="py-3 px-2">{{ $index_hiv++ }}</td>
-                            <td class="py-3 px-2">{{ $row['ingreso_variable'] }}</td>
-                            <td class="py-3 fecha-celda">{{ $row['updated_at'] }}</td>
+                            <td class="py-3 px-2 border-b border-slate-200">{{ $index_hiv++ }}</td>
+                            <td class="py-3 px-2 border-b border-slate-200">{{ $row['ingreso_variable'] }}</td>
+                            <td class="py-3 fecha-celda border-b border-slate-200">{{ $row['updated_at'] }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -215,11 +231,11 @@
 
     <div id="aboutModalAyuda" class="hidden flex items-center justify-center">
         <div class="modal-content bg-white p-6 rounded-lg shadow-lg m-8">
-            <h2 class="text-xl font-bold mb-4">Ingresos</h2>
-            <p class="mb-4 text-justify">
+            <h2 class="text-xl font-bold mb-4 text-gray-800">Ingresos</h2>
+            <p class="mb-4 text-justify text-gray-700">
                 Bienvenido a la pantalla de Ingresos. 
             </p>
-            <p class="mb-4 text-justify"> 
+            <p class="mb-4 text-justify text-gray-700"> 
                 En la presente sección, podrás fijar dos datos vitales de tu economía personal: 
                 tus ingresos fijos y tus ingresos variables.
                 Tu ingreso fijo consiste en la cantidad de dinero que percibes de manera regular, mensualmente. 
@@ -229,7 +245,7 @@
                 Al centro de la pantalla por debajo de ambos cuadros, podrás ver el balance de tus ingresos
                 y debajo del mismo dos botones para consultar tu historial: la lista de cambios que ha habido.
             </p>
-            <button id="closeModalBtnAyuda" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">Cerrar</button>
+            <button id="closeModalBtnAyuda" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition duration-300">Cerrar</button>
         </div>
     </div>
 @endsection
