@@ -28,6 +28,18 @@ class AuthenticatedSessionController extends Controller
 
         $user = Auth::user();
 
+        // Check if user has 2FA enabled
+        if ($user && $user->google2fa_enabled) {
+            // Logout the user temporarily
+            Auth::logout();
+            
+            // Store user ID in session for 2FA verification
+            session(['2fa_user_id' => $user->id]);
+            
+            // Redirect to 2FA verification
+            return redirect()->route('two-factor.verify');
+        }
+
         $request->session()->regenerate();
 
         if ($user) {

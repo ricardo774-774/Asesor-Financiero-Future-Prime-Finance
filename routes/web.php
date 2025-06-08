@@ -15,6 +15,7 @@ use App\Http\Controllers\PrevioController;
 use App\Http\Controllers\SaldoController;
 use App\Http\Controllers\calculoiaController;
 use App\Http\Controllers\PDFController;
+use App\Http\Controllers\TwoFactorAuthController;
 
 Route::get('/test', function () {
     return view('test');
@@ -266,5 +267,17 @@ Route::controller(GeneradorController::class)->group(function () {
 });
 
 Route::get('/descargar-registros', [PDFController::class, 'generarPDF'])->name('descargar-registros');
+
+
+// Two-Factor Authentication Routes
+Route::controller(TwoFactorAuthController::class)->group(function () {
+    Route::get('/two-factor', 'show')->middleware(['auth'])->name('two-factor.show');
+    Route::post('/two-factor/enable', 'enable')->middleware(['auth'])->name('two-factor.enable');
+    Route::post('/two-factor/disable', 'disable')->middleware(['auth'])->name('two-factor.disable');
+});
+
+// Two-Factor Authentication Routes for Login (no auth middleware)
+Route::get('/two-factor/verify', [TwoFactorAuthController::class, 'verify'])->name('two-factor.verify');
+Route::post('/two-factor/validate', [TwoFactorAuthController::class, 'validateTwoFactor'])->name('two-factor.validate');
 
 require __DIR__.'/auth.php';

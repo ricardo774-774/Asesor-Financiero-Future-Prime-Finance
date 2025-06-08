@@ -26,6 +26,9 @@ class User extends Authenticatable
         'password',
         'google_id',
         'avatar',
+        'google2fa_secret',
+        'google2fa_enabled',
+        'google2fa_verified_at',
     ];
     
     public function Ingreso(): HasOne
@@ -56,6 +59,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'google2fa_secret',
     ];
 
     /**
@@ -67,6 +71,8 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'google2fa_verified_at' => 'datetime',
+            'google2fa_enabled' => 'boolean',
             'password' => 'hashed',
         ];
     }
