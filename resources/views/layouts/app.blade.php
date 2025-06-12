@@ -108,7 +108,7 @@
                 <div id="aboutModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 flex justify-center items-center hidden z-50">
                     <div class="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-2xl mx-auto max-h-screen overflow-y-auto border border-slate-200">
                         <h2 class="text-xl font-bold mb-4 text-gray-800">Acerca de Nosotros</h2>
-                        <p class="mb-4 text-justify text-gray-700">Somos tres estudiantes de Ingeniería en Computación apasionados por la tecnología y comprometidos con la creación de soluciones innovadoras que marquen la diferencia en la vida de las personas. Nuestro proyecto es un asesor financiero diseñado para ser intuitivo, accesible y, sobre todo, efectivo en ayudar a las personas a gestionar sus finanzas personales de manera inteligente.</p>
+                        <p class="mb-4 text-justify text-gray-700">Soy un estudiante de Ingeniería en Computación apasionado por la tecnología y comprometido con la creación de soluciones innovadoras que marquen la diferencia en la vida de las personas. Este proyecto de titulación es un asesor financiero diseñado para ser intuitivo, accesible y, sobre todo, efectivo en ayudar a las personas a gestionar sus finanzas personales de manera inteligente.</p>
                         <p class="mb-4 text-justify text-gray-700">Creemos que el futuro financiero comienza con decisiones bien informadas, y nuestro asesor está aquí para guiarte en cada paso del camino, haciendo que la planificación financiera sea más fácil, eficiente y a tu alcance.</p>
                         <button id="closeModalBtn" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded transition duration-300">Cerrar</button>
                     </div>

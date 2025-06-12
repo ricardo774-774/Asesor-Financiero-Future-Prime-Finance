@@ -184,9 +184,31 @@
                         <h3 class="text-xl font-bold text-gray-800">Registro Diario</h3>
                     </div>
                     <p class="text-gray-600 mb-6 leading-relaxed">Almacena tu historial financiero, registrando tanto el saldo disponible como la fecha exacta en el momento de la operación. Esta información será utilizada para proporcionarte una predicción basada en datos reales sobre tu situación financiera.</p>
-                    <form method="POST" action="{{ route('historicos.store') }}">
+                    <form method="POST" action="{{ route('historicos.store') }}" onsubmit="return validarRegistroDiario()">
                         @csrf
-                        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-md" type="submit">
+                    
+                        <div class="mb-4">
+                            <label for="saldo_diario" class="block text-sm font-semibold text-gray-700 mb-1">Saldo Actual (MXN)</label>
+                            <input type="number" 
+                                   id="saldo_diario" 
+                                   name="saldo_diario" 
+                                   step="0.01"
+                                   min="0"
+                                   required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                                   placeholder="Ej: 1250.75">
+                        </div>
+                    
+                        <div class="mb-4">
+                            <label for="fecha_registro" class="block text-sm font-semibold text-gray-700 mb-1">Fecha del Registro</label>
+                            <input type="date" 
+                                   id="fecha_registro" 
+                                   name="fecha_registro" 
+                                   required
+                                   class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200">
+                        </div>
+                    
+                        <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition duration-200 shadow-md" type="submit">
                             <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
@@ -244,12 +266,30 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-gray-100">
-                                @foreach ($historicoapi as $item)
+                                @foreach ($historicoapi->take(5) as $index => $item)
                                     <tr class="hover:bg-gray-50 transition-colors duration-200">
                                         <td class="py-3 px-4 text-sm text-gray-800">{{ $item->fecha_click }}</td>
                                         <td class="py-3 px-4 text-sm font-medium text-green-600">${{ number_format($item->saldo, 2) }}</td>
                                     </tr>
                                 @endforeach
+                            
+                                @if ($historicoapi->count() > 5)
+                                    @foreach ($historicoapi->slice(5) as $index => $item)
+                                        <tr class="hover:bg-gray-50 transition-colors duration-200 hidden row-extra">
+                                            <td class="py-3 px-4 text-sm text-gray-800">{{ $item->fecha_click }}</td>
+                                            <td class="py-3 px-4 text-sm font-medium text-green-600">${{ number_format($item->saldo, 2) }}</td>
+                                        </tr>
+                                    @endforeach
+                            
+                                    <!-- Fila con botón -->
+                                    <tr>
+                                        <td colspan="2" class="text-center py-4">
+                                            <button id="toggleRowsBtn" class="text-blue-600 hover:underline font-medium">
+                                                Ver más
+                                            </button>
+                                        </td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
                     </div>
@@ -367,5 +407,44 @@
 @endsection
 
 @section('js')
-    <!-- Puedes agregar scripts aquí si es necesario -->
+<script>
+    function validarRegistroDiario() {
+        const saldoInput = document.getElementById('saldo_diario');
+        const fechaInput = document.getElementById('fecha_registro');
+
+        const saldo = parseFloat(saldoInput.value);
+        const fecha = fechaInput.value;
+
+        if (isNaN(saldo) || saldo < 0) {
+            alert("Por favor, introduce un saldo válido y no negativo.");
+            saldoInput.focus();
+            return false;
+        }
+
+        if (!fecha) {
+            alert("Por favor, selecciona una fecha para el registro.");
+            fechaInput.focus();
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script>
+    // Mostrar/Ocultar registros extra
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggleBtn = document.getElementById('toggleRowsBtn');
+        if (toggleBtn) {
+            let expanded = false;
+            toggleBtn.addEventListener('click', () => {
+                document.querySelectorAll('.row-extra').forEach(row => {
+                    row.classList.toggle('hidden');
+                });
+
+                expanded = !expanded;
+                toggleBtn.textContent = expanded ? 'Ver menos' : 'Ver más';
+            });
+        }
+    });
+</script>
 @endsection

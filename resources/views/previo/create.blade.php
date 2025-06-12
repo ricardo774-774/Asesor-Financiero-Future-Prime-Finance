@@ -46,6 +46,31 @@
             box-shadow: 0 4px 8px rgba(30, 64, 175, 0.4);
             background: linear-gradient(135deg, #1d4ed8 0%, #2563eb 100%);
         }
+
+        .comparison-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            border-left: 4px solid #3b82f6;
+        }
+
+        .crisis-simulator {
+            background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%);
+            border-left: 4px solid #ef4444;
+        }
+
+        .benchmark-positive {
+            color: #059669;
+            font-weight: bold;
+        }
+
+        .benchmark-negative {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .benchmark-neutral {
+            color: #d97706;
+            font-weight: bold;
+        }
     </style>
 @endsection
 
@@ -55,8 +80,8 @@
     <div class="container mx-auto px-4 py-6">
         <div class="flex justify-between items-center">
             <div>
-                <h1 class="text-3xl font-bold">ANÁLISIS FINANCIERO</h1>
-                <p class="text-blue-100 mt-2">Analiza tu situación económica con inteligencia artificial</p>
+                <h1 class="text-3xl font-bold">ANÁLISIS FINANCIERO AVANZADO</h1>
+                <p class="text-blue-100 mt-2">Compara tu situación con promedios nacionales y simula escenarios de crisis</p>
             </div>
             <a href="#" id="openModalBtnAyuda" class="tutorial-btn">Tutorial</a>
         </div>
@@ -80,250 +105,205 @@
                 </ul>
             </div>
         @endif
-        @if (session('errores') && is_array(session('errores')) > 0)
-            <div id="error-message" class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-r-lg mb-6 shadow-md">
-                <div class="flex items-center">
-                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
-                    </svg>
-                    <strong>Error:</strong> Tienes {{ count(session('errores')) }} error(es) en tu formulario:
-                </div>
-                <ul class="mt-2 ml-7">
-                    @foreach (session('errores') as $error)
-                        <li>• {{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-    
-        <!-- Analysis Form Card -->
+
+        <!-- Profile Setup Card -->
         <div class="bg-white rounded-xl shadow-lg border border-gray-200 p-8 mb-8">
             <div class="text-center mb-8">
                 <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
                     <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold text-gray-800 mb-2">Define tu Objetivo</h2>
-                <p class="text-gray-600">Establece tu meta financiera para obtener un análisis personalizado</p>
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">Perfil para Análisis</h2>
+                <p class="text-gray-600">Completa tu información para obtener comparaciones precisas</p>
             </div>
-    
-            <form method="POST" action="{{ $condicion_previo ? route('previo.update', $previo->previo->id) : route('previo.store') }}" class="space-y-6">
-                @csrf
-                @if ($condicion_previo)
-                    @method('PUT')
-                @else
-                    @method('POST')
-                @endif
-                
+            
+            <form id="profileForm" class="grid md:grid-cols-2 gap-6">
                 <div class="space-y-2">
-                    <label for="cantidad" class="block text-sm font-semibold text-gray-700">
+                    <label for="edad" class="block text-sm font-semibold text-gray-700">
+                        <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                        </svg>
+                        Edad
+                    </label>
+                    <select id="edad" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Selecciona tu rango de edad</option>
+                        <option value="18-25">18-25 años</option>
+                        <option value="26-35">26-35 años</option>
+                        <option value="36-45">36-45 años</option>
+                        <option value="46-55">46-55 años</option>
+                        <option value="56-65">56-65 años</option>
+                        <option value="65+">65+ años</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="region" class="block text-sm font-semibold text-gray-700">
+                        <svg class="w-4 h-4 inline mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+                        </svg>
+                        Región
+                    </label>
+                    <select id="region" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">Selecciona tu región</option>
+                        <option value="norte">Norte (Nuevo León, Sonora, Chihuahua)</option>
+                        <option value="centro">Centro (CDMX, Estado de México, Puebla)</option>
+                        <option value="bajio">Bajío (Jalisco, Guanajuato, Aguascalientes)</option>
+                        <option value="sur">Sur (Oaxaca, Chiapas, Guerrero)</option>
+                        <option value="sureste">Sureste (Yucatán, Quintana Roo, Campeche)</option>
+                    </select>
+                </div>
+
+                <div class="space-y-2">
+                    <label for="ingresos_mensuales" class="block text-sm font-semibold text-gray-700">
                         <svg class="w-4 h-4 inline mr-2 text-green-600" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
                         </svg>
-                        Cantidad objetivo (MXN)
+                        Ingresos Mensuales (MXN)
                     </label>
-                    <input type="number" 
-                           id="cantidad" 
-                           name="cantidad" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" 
-                           placeholder="Ej: 75000" 
-                           required>
+                    <input type="number" id="ingresos_mensuales" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ej: 25000">
                 </div>
-    
+
                 <div class="space-y-2">
-                    <label for="fecha" class="block text-sm font-semibold text-gray-700">
-                        <svg class="w-4 h-4 inline mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                    <label for="gastos_mensuales" class="block text-sm font-semibold text-gray-700">
+                        <svg class="w-4 h-4 inline mr-2 text-red-600" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
                         </svg>
-                        Fecha objetivo
+                        Gastos Mensuales (MXN)
                     </label>
-                    <input type="date" 
-                           id="fecha" 
-                           name="fecha" 
-                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200" 
-                           required>
+                    <input type="number" id="gastos_mensuales" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Ej: 18000">
                 </div>
-    
-                <div class="flex justify-center pt-4">
-                    <button class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-lg" type="submit">
+
+                <div class="md:col-span-2 flex justify-center pt-4">
+                    <button type="button" onclick="generateComparison()" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-8 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-lg">
                         <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                         </svg>
-                        Establecer Objetivo
+                        Generar Análisis Comparativo
                     </button>
                 </div>
             </form>
         </div>
-    
-        <!-- Main Content Grid -->
-        <div class="grid lg:grid-cols-3 gap-6 mb-8">
-            <!-- Action Cards Column -->
-            <div class="lg:col-span-2 space-y-6">
-                <!-- Registro Diario Card -->
-                <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-blue-200 transition-colors duration-300">
-                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.75 2.994v2.25m10.5-2.25v2.25m-14.252 13.5V7.491a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v11.251m-18 0a2.25 2.25 0 0 0 2.25 2.25h13.5a2.25 2.25 0 0 0 2.25-2.25m-18 0v-7.5a2.25 2.25 0 0 1 2.25-2.25h13.5a2.25 2.25 0 0 1 2.25 2.25v7.5m-6.75-6h2.25"/>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800">Registro Diario</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Almacena tu historial financiero, registrando tanto el saldo disponible como la fecha exacta en el momento de la operación.</p>
-                        <form method="POST" action="{{ route('historicos.store') }}">
-                            @csrf
-                            <button class="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-md" type="submit">
-                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
-                                </svg>
-                                Generar Registro
-                            </button>
-                        </form>
-                    </div>
-                </div>
-    
-                <!-- Predicción Card -->
-                <div class="bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition-all duration-300 group">
-                    <div class="p-6">
-                        <div class="flex items-center mb-4">
-                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4 group-hover:bg-green-200 transition-colors duration-300">
-                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                                </svg>
-                            </div>
-                            <h3 class="text-xl font-bold text-gray-800">Predicción IA</h3>
-                        </div>
-                        <p class="text-gray-600 mb-6 leading-relaxed">Realiza un análisis financiero a través de un objetivo económico seleccionado.</p>
-                        <form method="POST" action="{{ route('calculoia') }}">
-                            @csrf
-                            <button class="w-full bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-md" type="submit">
-                                <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                                </svg>
-                                Generar Predicción
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Current Objective Card -->
-            <div class="bg-white rounded-xl shadow-lg border border-gray-200">
-                <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-4 rounded-t-xl">
-                    <h2 class="text-xl font-bold flex items-center">
-                        <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                        </svg>
-                        Mi Objetivo Actual
-                    </h2>
-                </div>
-                <div class="p-6">
-                    <div class="space-y-4">
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex items-center mb-2">
-                                <svg class="w-4 h-4 text-green-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"/>
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z" clip-rule="evenodd"/>
-                                </svg>
-                                <span class="text-sm font-medium text-gray-700">Dinero Objetivo</span>
-                            </div>
-                            <p class="text-lg font-bold text-green-600">
-                                ${{ isset($previoapi) && $previoapi->dinero_previo ? number_format($previoapi->dinero_previo, 2) : 'Sin definir' }}
-                            </p>
-                        </div>
-                        <div class="bg-gray-50 rounded-lg p-4">
-                            <div class="flex items-center mb-2">
-                                <svg class="w-4 h-4 text-blue-600 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
-                                </svg>
-                                <span class="text-sm font-medium text-gray-700">Fecha Objetivo</span>
-                            </div>
-                            <p class="text-lg font-bold text-blue-600">
-                                {{ isset($previoapi) && $previoapi->fecha_meta ? $previoapi->fecha_meta : 'Sin definir' }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
-        <!-- Results Section -->
-        <div class="grid md:grid-cols-2 gap-6">
-            <!-- Tabla Resultados -->
-            @if (isset($historicoapi) && $historicoapi->count() > 0)
-            <div class="bg-white rounded-xl shadow-lg border border-gray-200">
-                <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-4 rounded-t-xl">
+        <!-- Analysis Results Grid -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+            <!-- Comparación con Promedios Nacionales -->
+            <div id="comparisonResults" class="bg-white rounded-xl shadow-lg border border-gray-200 hidden">
+                <div class="bg-gradient-to-r from-blue-800 to-blue-600 text-white p-6 rounded-t-xl">
                     <h2 class="text-xl font-bold flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                             <path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
                         </svg>
-                        Historial de Registros
+                        Comparación Nacional
                     </h2>
                 </div>
-                <div class="p-4">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 bg-gray-50">Fecha</th>
-                                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 bg-gray-50">Saldo</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                @foreach ($historicoapi as $item) 
-                                    <tr class="hover:bg-gray-50 transition-colors duration-200"> 
-                                        <td class="py-3 px-4 text-sm text-gray-800">{{ $item->fecha_click }}</td>
-                                        <td class="py-3 px-4 text-sm font-medium text-green-600">${{ number_format($item->saldo, 2) }}</td>
-                                    </tr> 
-                                @endforeach 
-                            </tbody>
-                        </table>
+                <div class="p-6 space-y-4">
+                    <div class="comparison-card p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">📊 Ingresos vs Promedio Nacional</h3>
+                        <div id="incomeComparison" class="text-sm"></div>
+                    </div>
+                    
+                    <div class="comparison-card p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">💰 Capacidad de Ahorro</h3>
+                        <div id="savingsComparison" class="text-sm"></div>
+                    </div>
+                    
+                    <div class="comparison-card p-4 rounded-lg">
+                        <h3 class="font-semibold text-gray-800 mb-2">🎯 Recomendaciones Personalizadas</h3>
+                        <div id="recommendations" class="text-sm"></div>
                     </div>
                 </div>
             </div>
-            @endif 
 
-            <!-- Tabla Predicciones -->
-            @if (isset($response))
+            <!-- Simulador de Crisis -->
             <div class="bg-white rounded-xl shadow-lg border border-gray-200">
-                <div class="bg-gradient-to-r from-green-600 to-green-700 text-white p-4 rounded-t-xl">
+                <div class="bg-gradient-to-r from-red-600 to-red-700 text-white p-6 rounded-t-xl">
                     <h2 class="text-xl font-bold flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v6.5a2.5 2.5 0 01-1.5 2.291A2.5 2.5 0 0116 18.5h-8A2.5 2.5 0 017 16a.5.5 0 01.5-.5h.75V14h-2a2 2 0 01-2-2V8a2 2 0 012-2h1zm2.5 0h3V5a1.5 1.5 0 00-3 0v1z" clip-rule="evenodd"/>
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.667-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
                         </svg>
-                        Predicciones IA
+                        Simulador de Crisis
                     </h2>
                 </div>
-                <div class="p-4">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead>
-                                <tr class="border-b border-gray-200">
-                                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 bg-gray-50">Ahorro Diario</th>
-                                    <th class="py-3 px-4 text-left text-sm font-semibold text-gray-700 bg-gray-50">Ahorro Mensual</th>
-                                </tr>
-                            </thead>
-                            <tbody class="divide-y divide-gray-100">
-                                <tr class="hover:bg-gray-50 transition-colors duration-200">
-                                    @foreach ($response as $item)
-                                        <td class="py-3 px-4 text-sm font-medium text-blue-600">${{ $item }}</td>
-                                    @endforeach
-                                </tr>
-                                @if (isset($ahorro))
-                                    <tr class="hover:bg-gray-50 transition-colors duration-200">
-                                        <td class="py-3 px-4 text-sm text-gray-800">{{ $ahorro->ejemplo }}</td>   
-                                        <td class="py-3 px-4"><img src="{{ $ahorro->foto }}" class="h-16 w-auto rounded-lg"></td>  
-                                    </tr>
-                                @endif
-                            </tbody>
-                        </table>
+                <div class="p-6">
+                    <p class="text-gray-600 mb-6">Simula diferentes escenarios de crisis para evaluar tu resistencia financiera</p>
+                    
+                    <div class="space-y-4 mb-6">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Tipo de Crisis</label>
+                            <select id="crisisType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                <option value="job_loss">Pérdida de empleo</option>
+                                <option value="medical">Emergencia médica</option>
+                                <option value="economic">Crisis económica general</option>
+                                <option value="family">Emergencia familiar</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Duración (meses)</label>
+                            <select id="crisisDuration" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                <option value="1">1 mes</option>
+                                <option value="3" selected>3 meses</option>
+                                <option value="6">6 meses</option>
+                                <option value="12">12 meses</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">Reducción de ingresos (%)</label>
+                            <select id="incomeReduction" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                                <option value="25">25% - Reducción parcial</option>
+                                <option value="50">50% - Reducción significativa</option>
+                                <option value="75">75% - Reducción severa</option>
+                                <option value="100" selected>100% - Pérdida total</option>
+                            </select>
+                        </div>
                     </div>
+                    
+                    <button onclick="simulateCrisis()" class="w-full bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 text-white font-semibold py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transform hover:scale-105 transition-all duration-200 shadow-md">
+                        <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                        </svg>
+                        Simular Escenario de Crisis
+                    </button>
                 </div>
             </div>
-            @endif
+        </div>
+
+        <!-- Crisis Results -->
+        <div id="crisisResults" class="bg-white rounded-xl shadow-lg border border-gray-200 hidden mb-8">
+            <div class="bg-gradient-to-r from-red-600 to-red-700 text-white p-6 rounded-t-xl">
+                <h2 class="text-xl font-bold flex items-center">
+                    <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    Resultados del Simulador
+                </h2>
+            </div>
+            <div class="p-6">
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="crisis-simulator p-4 rounded-lg text-center">
+                        <h3 class="font-semibold text-gray-800 mb-2">⏱️ Tiempo de Supervivencia</h3>
+                        <div id="survivalTime" class="text-2xl font-bold text-red-600"></div>
+                    </div>
+                    
+                    <div class="crisis-simulator p-4 rounded-lg text-center">
+                        <h3 class="font-semibold text-gray-800 mb-2">💸 Déficit Total</h3>
+                        <div id="totalDeficit" class="text-2xl font-bold text-red-600"></div>
+                    </div>
+                    
+                    <div class="crisis-simulator p-4 rounded-lg text-center">
+                        <h3 class="font-semibold text-gray-800 mb-2">🛡️ Fondo Recomendado</h3>
+                        <div id="recommendedFund" class="text-2xl font-bold text-green-600"></div>
+                    </div>
+                </div>
+                
+                <div class="mt-6 p-4 bg-yellow-50 border-l-4 border-yellow-400 rounded-r-lg">
+                    <h3 class="font-semibold text-yellow-800 mb-2">📋 Plan de Acción Recomendado</h3>
+                    <div id="actionPlan" class="text-sm text-yellow-700"></div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -336,19 +316,22 @@
                 <svg class="w-6 h-6 mr-2" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-8-3a1 1 0 00-.867.5 1 1 0 11-1.731-1A3 3 0 0113 8a3.001 3.001 0 01-2 2.83V11a1 1 0 11-2 0v-1a1 1 0 011-1 1 1 0 100-2zm0 8a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/>
                 </svg>
-                Tutorial - Análisis Financiero
+                Tutorial - Análisis Financiero Avanzado
             </h2>
         </div>
         <div class="p-6">
             <div class="space-y-4 text-gray-700">
                 <p class="leading-relaxed">
-                    Bienvenido al analizador financiero.
+                    <strong>Análisis Financiero Avanzado</strong> te permite:
                 </p>
-                <p class="leading-relaxed">
-                    Ingresa una cantidad de dinero y el plazo en el que quieres conseguirlo. Con ayuda de nuestra inteligencia artificial vas a tener una predicción sobre el ahorro extra que necesitas para poder lograr tu objetivo. Además, verás una recomendación sobre lo que representa tu ahorro de manera visual.
-                </p>
+                <ul class="list-disc list-inside space-y-2 text-sm">
+                    <li><strong>Comparar</strong> tus finanzas con promedios nacionales por edad y región</li>
+                    <li><strong>Simular crisis</strong> como pérdida de empleo para evaluar tu resistencia financiera</li>
+                    <li><strong>Obtener recomendaciones</strong> personalizadas basadas en tu perfil</li>
+                    <li><strong>Planificar</strong> fondos de emergencia según diferentes escenarios</li>
+                </ul>
                 <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-400">
-                    <p class="text-blue-800 font-medium">💡 ¡No olvides hacer tu registro diario!</p>
+                    <p class="text-blue-800 font-medium">💡 Completa tu perfil para obtener análisis más precisos</p>
                 </div>
             </div>
             <div class="mt-6 flex justify-end">
@@ -363,36 +346,207 @@
 @endsection
 
 @section('js')
-    <script>
-        // Obtener elementos del DOM
-        const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
-        const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
-        const aboutModalAyuda = document.getElementById('aboutModalAyuda');
-
-        // Abrir el modal
-        openModalBtnAyuda.addEventListener('click', function(event) {
-            event.preventDefault();
-            aboutModalAyuda.style.display = 'flex';
-        });
-
-        // Cerrar el modal al hacer clic en el botón de cierre
-        closeModalBtnAyuda.addEventListener('click', function() {
-            aboutModalAyuda.style.display = 'none';
-        });
-
-        // Cerrar el modal al hacer clic fuera del contenido
-        window.addEventListener('click', function(event) {
-            if (event.target === aboutModalAyuda) {
-                aboutModalAyuda.style.display = 'none';
-            }
-        });
-
-        // Quitar de la vista el error
-        if (document.getElementById('error-message')) {
-            let errorDiv = document.getElementById('error-message');
-            setTimeout(() => {
-                errorDiv.remove();
-            }, 5000 );
+<script>
+    // Datos de referencia nacional (simulados pero basados en estadísticas reales)
+    const nationalAverages = {
+        '18-25': {
+            norte: { income: 18000, savings: 0.08 },
+            centro: { income: 16000, savings: 0.06 },
+            bajio: { income: 15000, savings: 0.07 },
+            sur: { income: 12000, savings: 0.05 },
+            sureste: { income: 13000, savings: 0.06 }
+        },
+        '26-35': {
+            norte: { income: 28000, savings: 0.12 },
+            centro: { income: 25000, savings: 0.10 },
+            bajio: { income: 22000, savings: 0.11 },
+            sur: { income: 18000, savings: 0.08 },
+            sureste: { income: 20000, savings: 0.09 }
+        },
+        '36-45': {
+            norte: { income: 35000, savings: 0.15 },
+            centro: { income: 32000, savings: 0.13 },
+            bajio: { income: 28000, savings: 0.14 },
+            sur: { income: 22000, savings: 0.10 },
+            sureste: { income: 25000, savings: 0.12 }
+        },
+        '46-55': {
+            norte: { income: 40000, savings: 0.18 },
+            centro: { income: 38000, savings: 0.16 },
+            bajio: { income: 32000, savings: 0.17 },
+            sur: { income: 25000, savings: 0.12 },
+            sureste: { income: 28000, savings: 0.14 }
+        },
+        '56-65': {
+            norte: { income: 35000, savings: 0.20 },
+            centro: { income: 33000, savings: 0.18 },
+            bajio: { income: 28000, savings: 0.19 },
+            sur: { income: 22000, savings: 0.15 },
+            sureste: { income: 25000, savings: 0.16 }
+        },
+        '65+': {
+            norte: { income: 25000, savings: 0.25 },
+            centro: { income: 23000, savings: 0.22 },
+            bajio: { income: 20000, savings: 0.24 },
+            sur: { income: 15000, savings: 0.18 },
+            sureste: { income: 18000, savings: 0.20 }
         }
-    </script>
+    };
+
+    function generateComparison() {
+        const edad = document.getElementById('edad').value;
+        const region = document.getElementById('region').value;
+        const ingresos = parseFloat(document.getElementById('ingresos_mensuales').value);
+        const gastos = parseFloat(document.getElementById('gastos_mensuales').value);
+
+        if (!edad || !region || !ingresos || !gastos) {
+            alert('Por favor completa todos los campos');
+            return;
+        }
+
+        const userSavings = ingresos - gastos;
+        const userSavingsRate = userSavings / ingresos;
+        
+        const nationalData = nationalAverages[edad][region];
+        const avgIncome = nationalData.income;
+        const avgSavingsRate = nationalData.savings;
+        const avgSavings = avgIncome * avgSavingsRate;
+
+        // Mostrar resultados
+        document.getElementById('comparisonResults').classList.remove('hidden');
+
+        // Comparación de ingresos
+        const incomePercentage = ((ingresos / avgIncome - 1) * 100).toFixed(1);
+        const incomeClass = ingresos > avgIncome ? 'benchmark-positive' : ingresos < avgIncome * 0.8 ? 'benchmark-negative' : 'benchmark-neutral';
+        document.getElementById('incomeComparison').innerHTML = `
+            <p>Tus ingresos: <strong>$${ingresos.toLocaleString()}</strong></p>
+            <p>Promedio nacional: <strong>$${avgIncome.toLocaleString()}</strong></p>
+            <p class="${incomeClass}">Diferencia: ${incomePercentage > 0 ? '+' : ''}${incomePercentage}%</p>
+        `;
+
+        // Comparación de ahorro
+        const savingsPercentage = ((userSavingsRate / avgSavingsRate - 1) * 100).toFixed(1);
+        const savingsClass = userSavingsRate > avgSavingsRate ? 'benchmark-positive' : userSavingsRate < avgSavingsRate * 0.5 ? 'benchmark-negative' : 'benchmark-neutral';
+        document.getElementById('savingsComparison').innerHTML = `
+            <p>Tu ahorro mensual: <strong>$${userSavings.toLocaleString()}</strong> (${(userSavingsRate * 100).toFixed(1)}%)</p>
+            <p>Promedio nacional: <strong>$${avgSavings.toLocaleString()}</strong> (${(avgSavingsRate * 100).toFixed(1)}%)</p>
+            <p class="${savingsClass}">Diferencia: ${savingsPercentage > 0 ? '+' : ''}${savingsPercentage}%</p>
+        `;
+
+        // Recomendaciones
+        let recommendations = '';
+        if (userSavingsRate < 0.05) {
+            recommendations = '🚨 <strong>Crítico:</strong> Tu tasa de ahorro es muy baja. Considera reducir gastos no esenciales y crear un presupuesto estricto.';
+        } else if (userSavingsRate < avgSavingsRate) {
+            recommendations = '⚠️ <strong>Mejorable:</strong> Estás por debajo del promedio. Intenta aumentar tu ahorro al menos 2-3% de tus ingresos.';
+        } else if (userSavingsRate > avgSavingsRate * 1.5) {
+            recommendations = '🌟 <strong>Excelente:</strong> Tu capacidad de ahorro es superior al promedio. Considera diversificar en inversiones.';
+        } else {
+            recommendations = '✅ <strong>Bien:</strong> Estás en el promedio nacional. Mantén este ritmo y considera optimizar tus inversiones.';
+        }
+        document.getElementById('recommendations').innerHTML = recommendations;
+    }
+
+    function simulateCrisis() {
+        const crisisType = document.getElementById('crisisType').value;
+        const duration = parseInt(document.getElementById('crisisDuration').value);
+        const incomeReduction = parseInt(document.getElementById('incomeReduction').value);
+        
+        const ingresos = parseFloat(document.getElementById('ingresos_mensuales').value) || 0;
+        const gastos = parseFloat(document.getElementById('gastos_mensuales').value) || 0;
+        
+        if (!ingresos || !gastos) {
+            alert('Primero completa tu información de ingresos y gastos');
+            return;
+        }
+
+        const currentSavings = ingresos - gastos;
+        const reducedIncome = ingresos * (1 - incomeReduction / 100);
+        const monthlyDeficit = gastos - reducedIncome;
+        const totalDeficit = monthlyDeficit * duration;
+        
+        // Calcular tiempo de supervivencia con ahorros actuales
+        const survivalMonths = currentSavings > 0 ? Math.floor(currentSavings / monthlyDeficit) : 0;
+        
+        // Fondo de emergencia recomendado
+        const recommendedFund = gastos * 6; // 6 meses de gastos
+        
+        // Mostrar resultados
+        document.getElementById('crisisResults').classList.remove('hidden');
+        
+        document.getElementById('survivalTime').textContent = 
+            survivalMonths > 0 ? `${survivalMonths} meses` : 'Menos de 1 mes';
+        
+        document.getElementById('totalDeficit').textContent = 
+            `$${totalDeficit.toLocaleString()}`;
+        
+        document.getElementById('recommendedFund').textContent = 
+            `$${recommendedFund.toLocaleString()}`;
+
+        // Plan de acción
+        let actionPlan = '';
+        const crisisNames = {
+            job_loss: 'pérdida de empleo',
+            medical: 'emergencia médica',
+            economic: 'crisis económica',
+            family: 'emergencia familiar'
+        };
+
+        if (survivalMonths < 3) {
+            actionPlan = `
+                <strong>Situación crítica ante ${crisisNames[crisisType]}:</strong><br>
+                • Crear fondo de emergencia inmediatamente<br>
+                • Reducir gastos no esenciales en 30-40%<br>
+                • Buscar fuentes de ingresos adicionales<br>
+                • Considerar refinanciamiento de deudas
+            `;
+        } else if (survivalMonths < 6) {
+            actionPlan = `
+                <strong>Situación moderada ante ${crisisNames[crisisType]}:</strong><br>
+                • Aumentar fondo de emergencia a 6 meses de gastos<br>
+                • Diversificar fuentes de ingresos<br>
+                • Revisar y optimizar gastos mensuales<br>
+                • Considerar seguros de protección
+            `;
+        } else {
+            actionPlan = `
+                <strong>Buena preparación ante ${crisisNames[crisisType]}:</strong><br>
+                • Mantener fondo de emergencia actualizado<br>
+                • Considerar inversiones de bajo riesgo<br>
+                • Revisar pólizas de seguros existentes<br>
+                • Planificar estrategias de ingresos pasivos
+            `;
+        }
+        
+        document.getElementById('actionPlan').innerHTML = actionPlan;
+    }
+
+    // Modal functionality
+    const openModalBtnAyuda = document.getElementById('openModalBtnAyuda');
+    const closeModalBtnAyuda = document.getElementById('closeModalBtnAyuda');
+    const aboutModalAyuda = document.getElementById('aboutModalAyuda');
+
+    openModalBtnAyuda.addEventListener('click', function(event) {
+        event.preventDefault();
+        aboutModalAyuda.style.display = 'flex';
+    });
+
+    closeModalBtnAyuda.addEventListener('click', function() {
+        aboutModalAyuda.style.display = 'none';
+    });
+
+    window.addEventListener('click', function(event) {
+        if (event.target === aboutModalAyuda) {
+            aboutModalAyuda.style.display = 'none';
+        }
+    });
+
+    // Auto-hide error messages
+    if (document.getElementById('error-message')) {
+        let errorDiv = document.getElementById('error-message');
+        setTimeout(() => {
+            errorDiv.remove();
+        }, 5000);
+    }
+</script>
 @endsection

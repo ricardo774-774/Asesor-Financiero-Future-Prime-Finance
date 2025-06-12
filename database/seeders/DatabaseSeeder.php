@@ -38,19 +38,19 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'adminL',
             'email' => 'lalofrancia1@gmail.com',
-            'password' => Hash::make('Modular2')
+            'password' => Hash::make('Titulacion2')
         ])->assignRole('admin');
 
         User::factory()->create([
             'name' => 'adminR',
             'email' => 'roberloplo23@gmail.com',
-            'password' => Hash::make('Modular2')
+            'password' => Hash::make('Titulacion2')
         ])->assignRole('admin');
 
         User::factory()->create([
             'name' => 'userG',
             'email' => 'usuarioG@gmail.com',
-            'password' => Hash::make('Modular2')
+            'password' => Hash::make('Titulacion2')
         ])->assignRole('user');
     }
 }

@@ -24,7 +24,7 @@ class UsuariosMuestraSeeder extends Seeder
                 'id' => 11,
                 'name' => 'Alex Casillas',
                 'email' => 'alexcasillas@gmail.com',
-                'password' => Hash::make('Modular2'),
+                'password' => Hash::make('Titulacion2'),
                 'email_verified_at' => $now, // Verificar el email con la fecha actual
                 'remember_token' => Str::random(10), // Generar un token aleatorio
                 'created_at' => $now, // Fecha de creación
@@ -34,7 +34,7 @@ class UsuariosMuestraSeeder extends Seeder
                 'id' => 22,
                 'name' => 'Max Cruz',
                 'email' => 'maxcruz@gmail.com',
-                'password' => Hash::make('Modular2'),
+                'password' => Hash::make('Titulacion2'),
                 'email_verified_at' => $now, // Verificar el email con la fecha actual
                 'remember_token' => Str::random(10), // Generar un token aleatorio
                 'created_at' => $now, // Fecha de creación
@@ -44,7 +44,7 @@ class UsuariosMuestraSeeder extends Seeder
                 'id' => 33,
                 'name' => 'Abraham Ramirez',
                 'email' => 'abrahamramirez@gmail.com',
-                'password' => Hash::make('Modular2'),
+                'password' => Hash::make('Titulacion2'),
                 'email_verified_at' => $now, // Verificar el email con la fecha actual
                 'remember_token' => Str::random(10), // Generar un token aleatorio
                 'created_at' => $now, // Fecha de creación

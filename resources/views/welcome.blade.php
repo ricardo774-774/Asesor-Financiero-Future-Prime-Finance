@@ -22,19 +22,20 @@
             border-radius: 12px;
             transition: all 0.3s ease;
             font-weight: 600;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             border: 2px solid transparent;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            box-shadow: 0 4px 18px rgba(30, 64, 175, 0.4);
         }
-        
         .button-inicio:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 8px 24px rgba(30, 64, 175, 0.6);
         }
 
         .glass-effect {
-            backdrop-filter: blur(20px);
-            background: rgba(30, 64, 175, 0.15);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
         }
 
         .hero-container {
@@ -62,13 +63,40 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+
+        .hero-container {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.98), rgba(59, 130, 246, 0.92));
+            backdrop-filter: blur(12px);
+            color: #f8fafc;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fade-in 1s ease-in-out;
+        }
+
+        @keyframes fade-in {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #1e3a8a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 700;
+        }
+
+        .text-blue-100,
+        .text-blue-200 {
+            color: #f1f5f9 !important; /* reemplazo sutil para mejor legibilidad */
+        }
     </style>
 </head>
 
-<body class="min-h-screen bg-cover bg-center bg-no-repeat relative overflow-x-hidden" style="background-image: url('{{asset('money-fond.png')}}');">
+<body class="min-h-screen bg-fixed bg-center bg-no-repeat bg-cover text-white" style="background-image: url('{{asset('money-fond.png')}}');">
+    
+    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-slate-900/50 to-blue-800/30 backdrop-blur-sm"></div>
     
     <!-- Overlay de gradiente -->
-    <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900/40 to-blue-800/30"></div>
     
     <div class="relative min-h-screen flex flex-col lg:flex-row items-center justify-center px-4 py-8">
         

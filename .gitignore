@@ -24,3 +24,22 @@ yarn-error.log
 
 /README.md
 README.md
+
+commands.md
+
+# Database Backups
+/database_backups/
+*.sql
+*.sql.gz
+
+# Log files
+*.log
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
