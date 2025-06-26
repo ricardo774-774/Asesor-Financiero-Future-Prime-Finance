@@ -8,7 +8,11 @@
 
 3. Arracar IA API
 
-- python 3 app.py
+- cd /Users/ricardovelezcalderon/Documents/school/modular/Modular24B/API_Titulacion
+
+- source venv/bin/activate
+
+- python3 app.py
 
 4. Seeder y migraciones
 

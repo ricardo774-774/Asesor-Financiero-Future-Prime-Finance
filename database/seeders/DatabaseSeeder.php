@@ -25,6 +25,8 @@ class DatabaseSeeder extends Seeder
             GeneradorCategoriasSeeder::class,
             GeneradorSugerenciasSeeder::class,
             HistoricosSeeder::class, // Llamar a HistoricosSeeder después de que los usuarios han sido creados
+            MaxCruzDemoSeeder::class, // Datos completos para Max Cruz (demo)
+            AlexCasillasDemoSeeder::class, // Datos completos para Alex Casillas (ingresos altos)
             //seeders que no estan pero no son necesarios:
             //
         ]); 

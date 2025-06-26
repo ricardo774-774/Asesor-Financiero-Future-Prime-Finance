@@ -4,8 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\previo;
 use App\Models\User;
+use App\Models\Ingreso;
+use App\Models\Gasto;
+use App\Models\historico;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class PrevioController extends Controller
@@ -23,29 +27,67 @@ class PrevioController extends Controller
      */
     public function create()
     {
+        $userId = Auth::user()->id;
+        $previo = User::with('Previo')->find($userId);
 
-        $previo=User::with('Previo')->find(Auth::user()->id);
+        $exists_previo = previo::where('userID', $userId)->exists();
+        $condicion_previo = $exists_previo ? true : false;
 
-        $exists_previo = previo::where('userID',Auth::user()->id)
-                        ->exists();
-        if($exists_previo==1){
-            $condicion_previo=true;
-        }
-        else{
-            $condicion_previo=false;
-        }
-
-            $previoapi = previo::where("userID", Auth::user()->id)-> first();
-            if($previoapi){
-                $date = Carbon::createFromFormat('Y-m-d H:i:s', $previoapi->created_at);
+        $previoapi = previo::where("userID", $userId)->first();
+        if($previoapi){
+            $date = Carbon::createFromFormat('Y-m-d H:i:s', $previoapi->created_at);
             $date = $date->addDays($previoapi->fecha_previo);
-            $previoapi->fecha_meta=$date->format('d-m-Y');
+            $previoapi->fecha_meta = $date->format('d-m-Y');
+            $previoapi->dinero_meta = $previoapi->dinero_previo;
+        }
 
-            $previoapi->dinero_meta=$previoapi->dinero_previo;
-            }
-            
+        // Obtener datos financieros reales del usuario para el análisis
+        $ingreso = Ingreso::where('userID', $userId)->first();
+        $gastos = Gasto::where('userID', $userId)->get();
+        $historicos = historico::where('userID', $userId)
+                              ->orderBy('fecha_click', 'desc')
+                              ->limit(30)
+                              ->get();
 
-        return view('previo.create', compact('condicion_previo', 'previo', 'previoapi'));
+        // Calcular totales
+        $ingresoTotal = 0;
+        $gastoTotal = 0;
+        $saldoActual = 0;
+
+        if ($ingreso) {
+            $ingresoTotal = ($ingreso->ingreso_fijo ?? 0) + ($ingreso->ingreso_variable ?? 0);
+            $saldoActual = $ingreso->ingreso_saldo ?? 0;
+        }
+
+        if ($gastos) {
+            $gastoTotal = $gastos->sum('monto');
+        }
+
+        // Calcular capacidad de ahorro
+        $capacidadAhorro = $ingresoTotal - $gastoTotal;
+
+        // Obtener el último saldo registrado si existe
+        if ($historicos->count() > 0) {
+            $ultimoHistorico = $historicos->first();
+            $saldoActual = $ultimoHistorico->saldo;
+        }
+
+        // Preparar datos para JavaScript
+        $datosFinancieros = [
+            'ingreso_mensual' => $ingresoTotal,
+            'gastos_mensuales' => $gastoTotal,
+            'saldo_actual' => $saldoActual,
+            'capacidad_ahorro' => $capacidadAhorro,
+            'historico_saldos' => $historicos->pluck('saldo')->toArray(),
+            'fechas_historico' => $historicos->pluck('fecha_click')->toArray(),
+        ];
+
+        return view('previo.create', compact(
+            'condicion_previo', 
+            'previo', 
+            'previoapi', 
+            'datosFinancieros'
+        ));
     }
 
     /**

@@ -22,7 +22,7 @@ class AppServiceProvider extends ServiceProvider
     {
         if (env('APP_ENV') !== "local") {
             // Forzar HTTPS solo si no se está haciendo una solicitud a la ruta específica
-            if ($this->app->request->fullUrl() !== 'http://127.0.0.1:5000/suggest_savings') {
+            if ($this->app->request->fullUrl() !== 'http://127.0.0.1:5001/suggest_savings') {
                 URL::forceScheme('https');
             }
         }

@@ -347,6 +347,9 @@
 
 @section('js')
 <script>
+    // Datos financieros reales del usuario desde la base de datos
+    const datosUsuario = @json($datosFinancieros ?? []);
+    
     // Datos de referencia nacional (simulados pero basados en estadísticas reales)
     const nationalAverages = {
         '18-25': {
@@ -396,11 +399,26 @@
     function generateComparison() {
         const edad = document.getElementById('edad').value;
         const region = document.getElementById('region').value;
-        const ingresos = parseFloat(document.getElementById('ingresos_mensuales').value);
-        const gastos = parseFloat(document.getElementById('gastos_mensuales').value);
+        let ingresos = parseFloat(document.getElementById('ingresos_mensuales').value);
+        let gastos = parseFloat(document.getElementById('gastos_mensuales').value);
 
-        if (!edad || !region || !ingresos || !gastos) {
-            alert('Por favor completa todos los campos');
+        // Si no hay datos en el formulario, usar datos reales del usuario
+        if ((!ingresos || !gastos) && datosUsuario) {
+            ingresos = datosUsuario.ingreso_mensual || 0;
+            gastos = datosUsuario.gastos_mensuales || 0;
+            
+            // Llenar los campos del formulario con los datos reales
+            if (ingresos > 0) document.getElementById('ingresos_mensuales').value = ingresos;
+            if (gastos > 0) document.getElementById('gastos_mensuales').value = gastos;
+        }
+
+        if (!edad || !region) {
+            alert('Por favor selecciona tu edad y región para continuar');
+            return;
+        }
+        
+        if (!ingresos || !gastos) {
+            alert('No se encontraron datos financieros. Por favor completa tu información de ingresos y gastos en el sistema primero.');
             return;
         }
 
@@ -452,21 +470,42 @@
         const duration = parseInt(document.getElementById('crisisDuration').value);
         const incomeReduction = parseInt(document.getElementById('incomeReduction').value);
         
-        const ingresos = parseFloat(document.getElementById('ingresos_mensuales').value) || 0;
-        const gastos = parseFloat(document.getElementById('gastos_mensuales').value) || 0;
+        // Usar datos del formulario o datos reales del usuario
+        let ingresos = parseFloat(document.getElementById('ingresos_mensuales').value) || 0;
+        let gastos = parseFloat(document.getElementById('gastos_mensuales').value) || 0;
+        let saldoActual = 0;
+        
+        // Si no hay datos en el formulario, usar datos reales del usuario
+        if ((!ingresos || !gastos) && datosUsuario) {
+            ingresos = datosUsuario.ingreso_mensual || 0;
+            gastos = datosUsuario.gastos_mensuales || 0;
+            saldoActual = datosUsuario.saldo_actual || 0;
+            
+            // Llenar los campos del formulario con los datos reales
+            if (ingresos > 0) document.getElementById('ingresos_mensuales').value = ingresos;
+            if (gastos > 0) document.getElementById('gastos_mensuales').value = gastos;
+        }
         
         if (!ingresos || !gastos) {
-            alert('Primero completa tu información de ingresos y gastos');
+            alert('No se encontraron datos financieros. Por favor completa tu información de ingresos y gastos en el sistema primero.');
             return;
         }
 
-        const currentSavings = ingresos - gastos;
         const reducedIncome = ingresos * (1 - incomeReduction / 100);
-        const monthlyDeficit = gastos - reducedIncome;
+        const monthlyDeficit = Math.max(0, gastos - reducedIncome); // Evitar déficit negativo
         const totalDeficit = monthlyDeficit * duration;
         
-        // Calcular tiempo de supervivencia con ahorros actuales
-        const survivalMonths = currentSavings > 0 ? Math.floor(currentSavings / monthlyDeficit) : 0;
+        // CORRECCIÓN: Usar el saldo actual acumulado, no el ahorro mensual
+        // El saldo actual es lo que realmente tiene disponible para emergencias
+        const availableFunds = saldoActual > 0 ? saldoActual : Math.max(0, ingresos - gastos) * 3; // Estimar 3 meses de ahorro si no hay saldo
+        
+        // Calcular tiempo de supervivencia con fondos disponibles
+        let survivalMonths = 0;
+        if (monthlyDeficit > 0 && availableFunds > 0) {
+            survivalMonths = Math.floor(availableFunds / monthlyDeficit);
+        } else if (monthlyDeficit <= 0) {
+            survivalMonths = duration; // Si no hay déficit, puede sobrevivir toda la crisis
+        }
         
         // Fondo de emergencia recomendado
         const recommendedFund = gastos * 6; // 6 meses de gastos
@@ -548,5 +587,40 @@
             errorDiv.remove();
         }, 5000);
     }
+
+    // Cargar datos del usuario automáticamente al cargar la página
+    function cargarDatosUsuario() {
+        if (datosUsuario && datosUsuario.ingreso_mensual > 0) {
+            document.getElementById('ingresos_mensuales').value = datosUsuario.ingreso_mensual;
+            document.getElementById('gastos_mensuales').value = datosUsuario.gastos_mensuales;
+            
+            // Mostrar información adicional al usuario
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'bg-blue-50 border-l-4 border-blue-400 p-4 rounded-r-lg mb-6';
+            infoDiv.innerHTML = `
+                <div class="flex items-center">
+                    <svg class="w-5 h-5 mr-2 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                    </svg>
+                    <strong class="text-blue-800">Datos Cargados:</strong>
+                </div>
+                <p class="text-blue-700 mt-2 ml-7">
+                    Se han cargado automáticamente tus datos financieros del sistema:<br>
+                    • Ingresos: $${datosUsuario.ingreso_mensual.toLocaleString()}<br>
+                    • Gastos: $${datosUsuario.gastos_mensuales.toLocaleString()}<br>
+                    • Saldo actual: $${datosUsuario.saldo_actual.toLocaleString()}
+                </p>
+            `;
+            
+            // Insertar la información después del header
+            const container = document.querySelector('.container.mx-auto.px-4.py-8');
+            if (container && container.firstChild) {
+                container.insertBefore(infoDiv, container.firstChild);
+            }
+        }
+    }
+
+    // Ejecutar al cargar la página
+    document.addEventListener('DOMContentLoaded', cargarDatosUsuario);
 </script>
 @endsection

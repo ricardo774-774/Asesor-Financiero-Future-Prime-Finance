@@ -105,7 +105,7 @@
             </div>
 
             <div class="max-w-md mx-auto">
-                <form method="POST" action="{{ route('generador.sugerencia') }}" class="space-y-6">
+                <form method="POST" action="{{ route('generador.sugerencia') }}" class="space-y-6" id="generadorForm">
                     @csrf
                     <div class="space-y-2">
                         <label for="categoria" class="block text-sm font-semibold text-gray-700">
@@ -117,6 +117,7 @@
                         <select id="categoria" 
                                 name="categoria" 
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors duration-200 bg-white">
+                            <option value="" selected disabled>Selecciona una categoría</option>
                             @foreach ($categorias as $categoria)
                                 <option value="{{ $categoria->id }}">{{ $categoria->nombre}}</option>
                             @endforeach
@@ -315,6 +316,17 @@
             errorDiv.remove();
         }, 5000 );
     }
+
+    // Validación del formulario
+    document.getElementById('generadorForm').addEventListener('submit', function(event) {
+        const categoriaSelect = document.getElementById('categoria');
+        
+        // Verificar si no se ha seleccionado una categoría válida
+        if (!categoriaSelect.value || categoriaSelect.value === '') {
+            event.preventDefault(); // Prevenir el envío del formulario
+            return false;
+        }
+    });
 </script>
 @endsection
 
