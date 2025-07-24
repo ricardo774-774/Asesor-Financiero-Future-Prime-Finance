@@ -99,8 +99,11 @@ php artisan serve
 ### 7. Iniciar API de Python (opcional)
 ```bash
 cd API_Titulacion
+pip install -r requirements.txt
 python app.py
 ```
+
+**API de Inteligencia Artificial**: Proporciona predicciones financieras usando machine learning con Decision Trees. Analiza datos históricos del usuario y los compara con un dataset de 4,020 registros financieros reales para calcular el ahorro diario y mensual necesario para alcanzar metas financieras específicas. La API combina el patrón de gastos del usuario con datos demográficos para generar recomendaciones personalizadas.
 
 ## 📈 Flujo de Uso Actualizado
 
