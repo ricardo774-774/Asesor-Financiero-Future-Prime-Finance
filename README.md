@@ -7,7 +7,7 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-# 💰 Future Prime Finance - Tu Asesor Financiero Personal
+# 💰 FinanzasPro - Tu Asesor Financiero Personal
 
 FinanzasPro es una aplicación web desarrollada en Laravel que funciona como tu asesor financiero personal avanzado. Diseñada para ayudarte a gestionar, analizar y optimizar tus finanzas personales de manera inteligente, comparativa y predictiva.
 
